@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+  background: #f5f9ff;
+  margin: 0;
+}
+
+/***************** VARIABLES **************** */
+:root {
+  /********* Colors ******** */
+  --primary-color: #5bb8ff; /* Brand color */
+  --secondary-color: #161E6B; /* Dark Blue */
+  --tertiary-color: #8c52ff;
+  --quaternary-color: #39d8a3;
+  --light-background: #e9f5ff;
+  --black-color: #000;
+  --price-color: #ff1e1e;
+  --out-of-stock-color: #f05454;
+  --hot-product-color: #00bfff;
+  --light-text-color: #757f95;
+  --rating-star-color: #fba707;
+  --card-hover-opacity: 0.7;
+  --light-text-color: #757f95;
+  --rating-star-color: #fba707;
+  --button-bg-color: #007bff;
+  --footer-bg-color: #d8ecff;
+  --but-bg-color:#0070CD;
+  --monay-bg-color:#547bd1;
+  --text-bg-color:#160e4b;
+  --card-hover-opacity: 0.7;
+  /********* Font sizes ******** */
+  --text-80: 3.81rem;
+  --text-64: 3.048rem;
+  --text-51: 2.429rem;
+  --text-41: 1.952rem;
+  --text-33: 1.571rem;
+  --text-26: 1.238rem;
+  --text-21: 1rem;
+  --text-17: 0.81rem;
+  --text-13: 0.619rem;
+}
+
+.footer-custom {
+  background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+  color: var(--light-background);
+  transition: background 0.3s ease-in-out;
+}
+
+/* دعم النمط الليلي */
+.dark .footer-custom {
+  background: linear-gradient(to right, #1a1a1a, #333333);
+  color: #f0f0f0;
+}
+/***************** FONT CLASSES **************** */
+.inter-100 {
+  font-weight: 100;
+}
+
+.inter-200 {
+  font-weight: 200;
+}
+
+.inter-300 {
+  font-weight: 300;
+}
+
+.inter-400 {
+  font-weight: 400;
+}
+
+.inter-500 {
+  font-weight: 500;
+}
+
+.inter-600 {
+  font-weight: 600;
+}
+
+.inter-700 {
+  font-weight: 700;
+}
+
+.inter-800 {
+  font-weight: 800;
+}
+
+.inter-900 {
+  font-weight: 900;
+}
+
+
+/***************** COMPONENTS **************** */
+@layer components {
+  .section-header-small {
+    @apply font-bold text-primary uppercase text-center my-2;
+    letter-spacing: 3px;
+    font-size: var(--text-17);
+  }
+
+  .section-header-main {
+    @apply font-bold text-3xl my-2;
+    width: fit-content;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header-main::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    height: 3px;
+    width: 40%;
+    background-color: var(--primary-color);
+  }
+
+  .section-header-main::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 20px;
+    width: 85%;
+    background-color: var(--light-background);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: -1;
+  }
+
+  .link-hover {
+    @apply hover:text-gray-300 transition;
+  }
+}

@@ -1,0 +1,57 @@
+  <!-- Login Form Section -->
+  <div class="flex flex-col justify-center items-center w-full lg:w-2/3 px-4 sm:px-8 lg:px-16  ">
+    <!-- Logo -->
+    <img class=" mb-4 w-32 sm:w-48 " 
+    routerLink="/home"
+         src="images/logo 2 trams.png" 
+         alt="Prime Care Logo">
+    
+  
+    
+    <!-- Login Form -->
+    <form [formGroup]="login" (ngSubmit)="Login()" class="w-full mt-5 max-w-xs sm:max-w-sm">
+      <!-- Email Field -->
+      <div class="relative w-full">
+        <i class="fas fa-envelope text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+        <input formControlName="email" 
+               type="email" 
+               placeholder="Email Address"
+               class="w-full border border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 pl-10 p-2.5 placeholder-blue-900 text-blue-700 dark:bg-gray-300"
+               aria-label="Email Address">
+      </div>
+      <app-alerts [formName]="login" controlName="email"/>
+      
+      <!-- Password Field -->
+      <div class="relative w-full mt-4">
+        <i class="fas fa-lock text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+        <input formControlName="password" 
+               type="password" 
+               placeholder="Password"
+               class="w-full border border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 pl-10 p-2.5 placeholder-blue-900 text-blue-700 dark:bg-gray-300"
+               aria-label="Password">
+      </div>
+      <app-alerts [formName]="login" controlName="password"/>
+      
+      <!-- Error Message -->
+      <p class="mt-2 text-center text-red-600">{{errormessage}}</p>
+      
+      <!-- Forgot Password -->
+      <div class="w-full mt-5 text-center">
+        <a routerLink="/resetPassword" class="text-blue-900 hover:underline dark:text-white">
+          Forgot Password?
+        </a>
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="text-center mt-6">
+<button
+  class="bg-blue-900 text-white hover:bg-blue-700 duration-500 text-center rounded-3xl px-12 p-4 text-xl"
+>
+SUBMIT
+</button>   
+   </div>
+      
+  
+    </form>
+  </div>
+    

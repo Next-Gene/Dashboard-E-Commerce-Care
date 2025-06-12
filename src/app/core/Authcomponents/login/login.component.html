@@ -1,0 +1,75 @@
+  <!-- Login Form Section -->
+  <div class="flex flex-col justify-center items-center w-full max-sm:px-4  m-auto   ">
+    <!-- Logo -->
+    <img class="  w-80  " 
+    routerLink="/home"
+         src="/prime care.png" 
+         alt="Prime Care Logo">
+    
+  <h2 class="text-center text-2xl mb-6 text-[#40568E]">SELLER CENTER</h2>
+    
+    <!-- Login Form -->
+    <form [formGroup]="login" (ngSubmit)="Login()" class="w-full mt-5 border rounded-lg border-gray-400 max-w-sm sm:max-w-md">
+      <!-- Email Field -->
+       <h2 class="ml-10 mt-10 mb-5 max-sm:mx-0 max-sm:text-center">SIGN IN</h2>
+       @if (step==1) {
+          <div class=" max-sm:m-0 ml-12 w-full">
+        <h2>Enter Email</h2>
+        <input  formControlName="email" 
+               type="email" 
+               class="  border w-3/4 max-sm:w-full mt-1.5 border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5  text-blue-700 dark:bg-gray-100"
+               aria-label="Email Address">
+                     <app-alerts [formName]="login" controlName="email"/>
+                     
+             
+      </div>
+         <div class="text-center mt-6">
+<button
+  class="bg-[#8ACCFF] text-black hover:bg-blue-400 mb-10 duration-500 text-center rounded-3xl px-28 p-1 "
+>
+Continue
+</button>   
+   </div>
+     <h2 class="ml-10 max-sm:ml-2">By continuing, you agree to <span class="text-[#0070CD]">Primes’s</span> Conditions <br class="max-sm:hidden">
+of Use and <span class="text-[#0070CD]"> Privacy Notice.</span></h2>
+       }
+    
+          @if (step==2) {
+          <!-- Password Field -->
+      <div class="px-12 max-sm:p-0 w-full mt-4">
+        <div class="flex justify-between ">
+          <h2>Password</h2>
+  <a routerLink="/resetPassword" class="text-blue-900 hover:underline ">
+          Forgot Password?
+        </a>
+        </div>
+        <input formControlName="password" 
+               type="password" 
+               class=" border w-full mt-1.5 border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5  text-blue-700 dark:bg-gray-100"
+               aria-label="Password">
+                 <app-alerts [formName]="login" controlName="password"/>
+      
+      <!-- Error Message -->
+      <p class="mt-2 text-center text-red-600">{{errormessage}}</p>
+      
+     
+      
+      </div>
+         <div class="text-center mt-6">
+<button
+  class="bg-[#8ACCFF] text-black hover:bg-blue-300 mb-20 duration-500 text-center rounded-3xl px-28 p-1 "
+>
+Continue
+</button>   
+   </div>
+ 
+       }
+    
+    
+      <!-- Submit Button -->
+   
+      
+  
+    </form>
+  </div>
+    

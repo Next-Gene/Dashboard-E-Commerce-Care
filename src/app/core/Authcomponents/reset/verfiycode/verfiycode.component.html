@@ -1,0 +1,54 @@
+<div class="flex flex-col  justify-center items-center w-full px-4 sm:px-8 lg:px-16">
+  <!-- Logo -->
+  <img class="w-80" 
+       src="/prime care.png" 
+       alt="prime care Logo">
+  
+  
+  <h2 class="text-center text-2xl mb-6 text-[#40568E]">SELLER CENTER</h2>
+
+  <!-- Verification Form -->
+  <form [formGroup]="verifycode" (ngSubmit)="submit2()" class="w-full border border-gray-400 rounded-xl  sm:max-w-md ">
+    <h2 class="ml-10 mt-10 max-sm:ml-0 max-sm:text-center mb-5 ">Enter Verification Code</h2>
+
+      <div class=" ml-12 max-sm:ml-0 w-full my-4">
+        <h2>Enter Email</h2>
+        <input formControlName="email" 
+               type="email" 
+             
+               class="w-3/4 max-sm:w-full border mt-1.5 border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 placeholder-blue-900 text-blue-700 dark:bg-gray-100"
+               aria-label="Email Address">
+                     <app-alerts  [formName]="verifycode" controlName="email"/>
+
+      </div>
+       <div class=" ml-12 max-sm:ml-0 w-full my-4">
+        <h2>For your security, we have sent the code <br class="max-sm:hidden"> to your email n******&#64;gmail.com.</h2>
+    <input formControlName="code" 
+           type="text" 
+         
+           class="w-3/4 max-sm:w-full border border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 placeholder-blue-900 text-blue-700 dark:bg-gray-100 mt-4"
+           aria-label="Verification Code">
+
+       </div>
+
+
+    <!-- Verify Button -->
+ <div class="text-center mt-6">
+<button
+  class="bg-[#8ACCFF] text-black hover:bg-blue-300 mb-5 duration-500 text-center rounded-3xl px-28 p-1"
+>
+SUBMIT CODE
+</button>   
+   </div>
+
+    <!-- Resend Code Option -->
+    <!-- <div class="text-center mt-4">
+      <button type="button" 
+              (click)="resendCode()"
+              class="text-blue-600 hover:text-blue-800 hover:underline"
+              [disabled]="resendDisabled">
+        Resend Code
+      </button>
+    </div> -->
+  </form>
+</div>

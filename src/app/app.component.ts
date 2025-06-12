@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { isPlatformBrowser } from '@angular/common';
 import { FlowbiteService } from './core/service/flowbite.service';
+import { LoginComponent } from "./core/Authcomponents/login/login.component";
 
 @Component({
   selector: 'app-root',

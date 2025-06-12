@@ -1,75 +1,57 @@
-  <!-- Login Form Section -->
-  <div class="flex flex-col justify-center items-center w-full max-sm:px-4  m-auto   ">
-    <!-- Logo -->
-    <img class="  w-80  " 
-    routerLink="/home"
-         src="/prime care.png" 
-         alt="Prime Care Logo">
-    
-  <h2 class="text-center text-2xl mb-6 text-[#40568E]">SELLER CENTER</h2>
-    
+<!-- Login Form Section -->
+<div class="min-h-screen flex flex-col justify-center items-center w-full bg-gradient-to-br from-blue-50 to-white p-4">
+  <!-- Logo -->
+  <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg transform transition-all hover:scale-105 duration-300">
+    <img class="w-64 mx-auto mb-8 cursor-pointer" routerLink="/home" src="/prime care.png" alt="Prime Care Logo">
+    <h2 class="text-center text-3xl font-semibold mb-8 text-[#40568E] tracking-wide">SELLER CENTER</h2>
+
     <!-- Login Form -->
-    <form [formGroup]="login" (ngSubmit)="Login()" class="w-full mt-5 border rounded-lg border-gray-400 max-w-sm sm:max-w-md">
+    <form [formGroup]="login" (ngSubmit)="Login()" class="space-y-6">
       <!-- Email Field -->
-       <h2 class="ml-10 mt-10 mb-5 max-sm:mx-0 max-sm:text-center">SIGN IN</h2>
-       @if (step==1) {
-          <div class=" max-sm:m-0 ml-12 w-full">
-        <h2>Enter Email</h2>
-        <input  formControlName="email" 
-               type="email" 
-               class="  border w-3/4 max-sm:w-full mt-1.5 border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5  text-blue-700 dark:bg-gray-100"
-               aria-label="Email Address">
-                     <app-alerts [formName]="login" controlName="email"/>
-                     
-             
-      </div>
-         <div class="text-center mt-6">
-<button
-  class="bg-[#8ACCFF] text-black hover:bg-blue-400 mb-10 duration-500 text-center rounded-3xl px-28 p-1 "
->
-Continue
-</button>   
-   </div>
-     <h2 class="ml-10 max-sm:ml-2">By continuing, you agree to <span class="text-[#0070CD]">Primes’s</span> Conditions <br class="max-sm:hidden">
-of Use and <span class="text-[#0070CD]"> Privacy Notice.</span></h2>
-       }
-    
-          @if (step==2) {
-          <!-- Password Field -->
-      <div class="px-12 max-sm:p-0 w-full mt-4">
-        <div class="flex justify-between ">
-          <h2>Password</h2>
-  <a routerLink="/resetPassword" class="text-blue-900 hover:underline ">
-          Forgot Password?
-        </a>
+      @if (step==1) {
+      <div class="space-y-4">
+        <h3 class="text-xl font-medium text-gray-700 mb-6">SIGN IN</h3>
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-gray-700">Enter Email</label>
+          <input formControlName="email" type="email"
+            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200 bg-gray-50"
+            aria-label="Email Address">
+          <app-alerts [formName]="login" controlName="email" />
         </div>
-        <input formControlName="password" 
-               type="password" 
-               class=" border w-full mt-1.5 border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5  text-blue-700 dark:bg-gray-100"
-               aria-label="Password">
-                 <app-alerts [formName]="login" controlName="password"/>
-      
-      <!-- Error Message -->
-      <p class="mt-2 text-center text-red-600">{{errormessage}}</p>
-      
-     
-      
+
+        <button class="w-full bg-[#40568E] text-white py-3 rounded-lg hover:bg-[#2c3d6a] transform hover:scale-[1.02] transition-all duration-300 font-medium">
+          Continue
+        </button>
+
+        <p class="text-sm text-gray-600 mt-6">
+          By continuing, you agree to <span class="text-[#0070CD] hover:underline cursor-pointer">Prime's</span> Conditions
+          of Use and <span class="text-[#0070CD] hover:underline cursor-pointer">Privacy Notice</span>
+        </p>
       </div>
-         <div class="text-center mt-6">
-<button
-  class="bg-[#8ACCFF] text-black hover:bg-blue-300 mb-20 duration-500 text-center rounded-3xl px-28 p-1 "
->
-Continue
-</button>   
-   </div>
- 
-       }
-    
-    
-      <!-- Submit Button -->
-   
-      
-  
+      }
+
+      @if (step==2) {
+      <!-- Password Field -->
+      <div class="space-y-4">
+        <div class="flex justify-between items-center">
+          <label class="text-sm font-medium text-gray-700">Password</label>
+          <a routerLink="/resetPassword" class="text-[#0070CD] text-sm hover:underline">
+            Forgot Password?
+          </a>
+        </div>
+        <input formControlName="password" type="password"
+          class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200 bg-gray-50"
+          aria-label="Password">
+        <app-alerts [formName]="login" controlName="password" />
+
+        <!-- Error Message -->
+        <p class="text-center text-red-600">{{errormessage}}</p>
+
+        <button class="w-full bg-[#40568E] text-white py-3 rounded-lg hover:bg-[#2c3d6a] transform hover:scale-[1.02] transition-all duration-300 font-medium">
+          Sign In
+        </button>
+      </div>
+      }
     </form>
   </div>
-    
+</div>

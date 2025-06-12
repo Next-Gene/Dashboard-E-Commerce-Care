@@ -37,6 +37,7 @@ export class LoginComponent {
     next: (res: any) => {
       localStorage.setItem("token", res.token);
       this._router.navigate(['/resetPassword'])
+      console.log(res);
     },
     error: (err: HttpErrorResponse) => {
       this.errormessage = err.error.message;

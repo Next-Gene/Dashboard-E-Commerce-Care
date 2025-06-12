@@ -1,54 +1,46 @@
-<div class="flex flex-col  justify-center items-center w-full px-4 sm:px-8 lg:px-16">
-  <!-- Logo -->
-  <img class="w-80" 
-       src="/prime care.png" 
-       alt="prime care Logo">
-  
-  
-  <h2 class="text-center text-2xl mb-6 text-[#40568E]">SELLER CENTER</h2>
+<div class="min-h-screen flex flex-col justify-center items-center w-full bg-gradient-to-br from-blue-50 to-white p-4">
+  <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg transform transition-all hover:scale-105 duration-300">
+    <!-- Logo -->
+    <img class="w-64 mx-auto mb-8" src="/prime care.png" alt="prime care Logo">
+    <h2 class="text-center text-3xl font-semibold mb-8 text-[#40568E] tracking-wide">SELLER CENTER</h2>
 
-  <!-- Verification Form -->
-  <form [formGroup]="verifycode" (ngSubmit)="submit2()" class="w-full border border-gray-400 rounded-xl  sm:max-w-md ">
-    <h2 class="ml-10 mt-10 max-sm:ml-0 max-sm:text-center mb-5 ">Enter Verification Code</h2>
+    <!-- Verification Form -->
+    <form [formGroup]="verifycode" (ngSubmit)="submit2()" class="space-y-6">
+      <div class="space-y-4">
+        <h3 class="text-xl font-medium text-gray-700 mb-6">Enter Verification Code</h3>
 
-      <div class=" ml-12 max-sm:ml-0 w-full my-4">
-        <h2>Enter Email</h2>
-        <input formControlName="email" 
-               type="email" 
-             
-               class="w-3/4 max-sm:w-full border mt-1.5 border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 placeholder-blue-900 text-blue-700 dark:bg-gray-100"
-               aria-label="Email Address">
-                     <app-alerts  [formName]="verifycode" controlName="email"/>
+        <!-- Email Field -->
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-gray-700">Enter Email</label>
+          <input formControlName="email" type="email"
+            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200 bg-gray-50"
+            aria-label="Email Address">
+          <app-alerts [formName]="verifycode" controlName="email"/>
+        </div>
 
+        <!-- Verification Code Field -->
+        <div class="space-y-2">
+          <p class="text-sm text-gray-600">For your security, we have sent the code to your email n******&#64;gmail.com</p>
+          <input formControlName="code" type="text"
+            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200 bg-gray-50 mt-2"
+            aria-label="Verification Code"
+            placeholder="Enter verification code">
+        </div>
+
+        <!-- Submit Button -->
+        <button class="w-full bg-[#40568E] text-white py-3 rounded-lg hover:bg-[#2c3d6a] transform hover:scale-[1.02] transition-all duration-300 font-medium">
+          SUBMIT CODE
+        </button>
+
+        <!-- Resend Code Option -->
+        <!-- <div class="text-center mt-4">
+          <button type="button" (click)="resendCode()"
+            class="text-[#0070CD] hover:underline font-medium"
+            [disabled]="resendDisabled">
+            Resend Code
+          </button>
+        </div> -->
       </div>
-       <div class=" ml-12 max-sm:ml-0 w-full my-4">
-        <h2>For your security, we have sent the code <br class="max-sm:hidden"> to your email n******&#64;gmail.com.</h2>
-    <input formControlName="code" 
-           type="text" 
-         
-           class="w-3/4 max-sm:w-full border border-blue-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 placeholder-blue-900 text-blue-700 dark:bg-gray-100 mt-4"
-           aria-label="Verification Code">
-
-       </div>
-
-
-    <!-- Verify Button -->
- <div class="text-center mt-6">
-<button
-  class="bg-[#8ACCFF] text-black hover:bg-blue-300 mb-5 duration-500 text-center rounded-3xl px-28 p-1"
->
-SUBMIT CODE
-</button>   
-   </div>
-
-    <!-- Resend Code Option -->
-    <!-- <div class="text-center mt-4">
-      <button type="button" 
-              (click)="resendCode()"
-              class="text-blue-600 hover:text-blue-800 hover:underline"
-              [disabled]="resendDisabled">
-        Resend Code
-      </button>
-    </div> -->
-  </form>
+    </form>
+  </div>
 </div>

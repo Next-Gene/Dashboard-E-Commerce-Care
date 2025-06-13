@@ -1,0 +1,39 @@
+nav {
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+  
+  a {
+    position: relative;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: rgba(59, 130, 246, 0.1);
+      
+      svg {
+        transform: scale(1.1);
+      }
+    }
+    
+    &.text-blue-600 {
+      svg {
+        color: #2563eb;
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 25%;
+        width: 50%;
+        height: 2px;
+        background-color: #2563eb;
+        border-radius: 2px;
+      }
+    }
+    
+    svg {
+      transition: transform 0.2s ease;
+    }
+  }
+} 

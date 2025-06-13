@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <div class="main-content" [class.mobile-view]="isMobileView">
+
+    <app-sidebar *ngIf="!isMobileView && !isAuthPage"></app-sidebar>
+
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <app-mobile-nav *ngIf="isMobileView && !isAuthPage"></app-mobile-nav>
+</div>

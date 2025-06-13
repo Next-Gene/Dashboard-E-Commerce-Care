@@ -43,4 +43,21 @@ export const routes: Routes = [
                 (c) => c.NewPasswordComponent
             ),
     },
+
+    {
+        path: 'layout',
+        loadComponent: () =>
+            import('./Features/pages/home/home.component').then(
+                (c) => c.HomeComponent
+            ),
+    },
+
+    {
+        path: 'category',
+        loadComponent: () =>
+            import('./Features/pages/category/category.component').then(
+                (c) => c.CategoryComponent
+            ),
+    },
+    
 ];

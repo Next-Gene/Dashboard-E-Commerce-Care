@@ -9,4 +9,6 @@ export class AuthENDPOINT {
   static FORGET_PASSWORD ="https://primecareapi.runasp.net/api/v1/auth/forget-password";
   static VERIFY_RESET_CODE ="https://primecareapi.runasp.net/api/v1/auth/verify-code";
   static RESET_PASSWORD ="https://primecareapi.runasp.net/api/v1/auth/reset-password";
+  static Get_User_Role ="https://primecareapi.runasp.net/api/v1/auth/user-roles";
+
 }

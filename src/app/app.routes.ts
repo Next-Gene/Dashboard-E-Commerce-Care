@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
       {
@@ -56,10 +57,19 @@ export const routes: Routes = [
 
     {
         path: 'category',
-        canActivate: [authGuard],
+        canActivate: [authGuard , roleGuard] ,
+        data: { roles: ['Admin'] },
         loadComponent: () =>
             import('./Features/pages/category/category.component').then(
                 (c) => c.CategoryComponent
+            ),
+    },
+
+    {
+        path: 'unauthorized',
+        loadComponent: () =>
+            import('./shared/unauthorized/unauthorized.component').then(
+                (c) => c.UnauthorizedComponent
             ),
     },
     

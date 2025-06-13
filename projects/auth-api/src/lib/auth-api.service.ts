@@ -12,6 +12,7 @@ import { RegisterRes } from './interface/registerRes';
 import { ForgetPassUser } from './interface/forgetPass';
 import { VerifyCodeUser } from './interface/VerifyCode';
 import { ResetPassUser } from './interface/ResetPass';
+import { userRoleRes } from './interface/userRoleRes';
 
 @Injectable({
   providedIn: 'root',
@@ -45,5 +46,10 @@ export class AuthApiService implements AuthAPI {
   Logout() :Observable<any>{
     return this._HttpClient.get(AuthENDPOINT.LOGIN_OUT );
   }
+
+  GetUserRole(): Observable<userRoleRes> {
+    return this._HttpClient.get<userRoleRes>(AuthENDPOINT.Get_User_Role);
+  }
   
 }
+

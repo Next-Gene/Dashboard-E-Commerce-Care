@@ -1,9 +1,8 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterOutlet, Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { MobileNavComponent } from './core/Layout/mobile-nav/mobile-nav.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Subscription } from 'rxjs';
 import { SidebarComponent } from './core/Layout/sidebar/sidebar.component';
 import { ViewportScroller } from '@angular/common';
 
@@ -20,11 +19,9 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./app.component.scss'],
   providers: [BreakpointObserver]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   isMobileView = false;
-  private subscription: Subscription | null = null;
-  isAuthPage: boolean = false;
-  isLoading: boolean = false;
+  isAuthPage = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -34,50 +31,27 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.checkAuthPage();
+    
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.isLoading = true;
-      }
-
-      if (
-        event instanceof NavigationEnd ||
-        event instanceof NavigationCancel ||
-        event instanceof NavigationError
-      ) {
-        this.isLoading = false;
-      }
-
       if (event instanceof NavigationEnd) {
-        const authPages = [
-          '/login',
-          '/register',
-          '/newPassword',
-          '/verifyCode',
-          '/resetPassword',
-        ];
-        this.isAuthPage = authPages.includes(event.url);
-      }
-    });
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId)) {
-        this.viewportScroller.scrollToPosition([0, 0]);
+        this.checkAuthPage();
+        if (isPlatformBrowser(this.platformId)) {
+          this.viewportScroller.scrollToPosition([0, 0]);
+        }
       }
     });
 
     if (isPlatformBrowser(this.platformId)) {
-      this.subscription = this.breakpointObserver
-        .observe([Breakpoints.Handset])
-        .subscribe(result => {
+      this.breakpointObserver.observe([Breakpoints.Handset])
+        .subscribe((result) => {
           this.isMobileView = result.matches;
         });
     }
   }
 
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
+  private checkAuthPage() {
+    const authPages = ['/login', '/register', '/newPassword', '/verifyCode', '/resetPassword'];
+    this.isAuthPage = authPages.includes(this.router.url);
   }
 }
-
-
-

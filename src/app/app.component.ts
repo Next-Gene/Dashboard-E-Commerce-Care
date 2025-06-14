@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { MobileNavComponent } from './core/Layout/mobile-nav/mobile-nav.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { SidebarComponent } from './core/Layout/sidebar/sidebar.component';
 import { ViewportScroller } from '@angular/common';
+import { UserDataServiceService } from './core/service/user-data-service.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -20,29 +22,36 @@ import { ViewportScroller } from '@angular/common';
   providers: [BreakpointObserver]
 })
 export class AppComponent implements OnInit {
-  isMobileView = false;
   isAuthPage = false;
+  isMobileView = false;
+  isBrowser: boolean;
+  initialized = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private viewportScroller: ViewportScroller
-  ) {}
+    private viewportScroller: ViewportScroller,
+    private userDataService: UserDataServiceService
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit() {
-    this.checkAuthPage();
-    
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.checkAuthPage();
-        if (isPlatformBrowser(this.platformId)) {
-          this.viewportScroller.scrollToPosition([0, 0]);
-        }
+    this.checkScreenSize();
+
+    // ✅ تحقق فقط بعد NavigationEnd
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.checkAuthPage(event.urlAfterRedirects); // ✅ استخدم urlAfterRedirects
+      if (this.isBrowser) {
+        this.viewportScroller.scrollToPosition([0, 0]);
       }
+      this.initialized = true;
     });
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.breakpointObserver.observe([Breakpoints.Handset])
         .subscribe((result) => {
           this.isMobileView = result.matches;
@@ -50,8 +59,20 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private checkAuthPage() {
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    if (this.isBrowser) {
+      this.isMobileView = window.innerWidth <= 768;
+    }
+  }
+
+  private checkAuthPage(url: string) {
     const authPages = ['/login', '/register', '/newPassword', '/verifyCode', '/resetPassword'];
-    this.isAuthPage = authPages.includes(this.router.url);
+    const currentUrl = url.split('?')[0];
+    this.isAuthPage = authPages.includes(currentUrl);
   }
 }

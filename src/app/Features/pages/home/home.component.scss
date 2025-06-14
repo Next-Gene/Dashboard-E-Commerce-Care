@@ -1,0 +1,324 @@
+// Custom styles for components that need specific styling beyond Flowbite utilities
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+// Custom animations
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Custom scrollbar styles
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+// Active link styles
+.router-link-active {
+  border-color: #4f46e5;
+  color: #111827;
+}
+
+// Hover effects
+a:hover {
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .sm\:hidden {
+    display: none;
+  }
+}
+
+.home-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+
+  .loading-container,
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    text-align: center;
+
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    .retry-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #2980b9;
+      }
+    }
+  }
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .user-welcome {
+      h1 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .role-badges {
+        display: flex;
+        gap: 0.5rem;
+
+        .badge {
+          padding: 0.25rem 0.75rem;
+          border-radius: 20px;
+          font-size: 0.875rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          &.admin {
+            background-color: #e3f2fd;
+            color: #1976d2;
+          }
+
+          &.seller {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+          }
+
+          i {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+
+    .logout-btn {
+      padding: 0.5rem 1rem;
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      color: #6c757d;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: #e9ecef;
+        color: #495057;
+      }
+    }
+  }
+
+  .dashboard-content {
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+
+      .stat-card {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .stat-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background-color: #e3f2fd;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #1976d2;
+          font-size: 1.5rem;
+        }
+
+        .stat-info {
+          h3 {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+          }
+
+          .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+          }
+        }
+      }
+    }
+
+    .revenue-section {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+
+      h2 {
+        font-size: 1.25rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+      }
+
+      .revenue-chart {
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+
+        .revenue-value {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #2c3e50;
+        }
+      }
+    }
+
+    .top-products-section {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      h2 {
+        font-size: 1.25rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+
+        .product-card {
+          background-color: #f8f9fa;
+          border-radius: 8px;
+          overflow: hidden;
+          transition: transform 0.3s;
+
+          &:hover {
+            transform: translateY(-4px);
+          }
+
+          .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+          }
+
+          .product-info {
+            padding: 1rem;
+
+            h3 {
+              font-size: 1rem;
+              color: #2c3e50;
+              margin-bottom: 0.5rem;
+            }
+
+            .product-category {
+              font-size: 0.875rem;
+              color: #6c757d;
+              margin-bottom: 0.5rem;
+            }
+
+            .product-sales,
+            .product-revenue {
+              font-size: 0.875rem;
+              color: #2c3e50;
+              margin-bottom: 0.25rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+
+    .dashboard-header {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+
+      .user-welcome {
+        .role-badges {
+          justify-content: center;
+        }
+      }
+    }
+
+    .dashboard-content {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+  
+  

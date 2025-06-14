@@ -1,23 +1,28 @@
 <ng-container *ngIf="initialized">
   <div class="app-container">
-    @if (!isAuthPage) {
+    <!-- Non-auth pages -->
+    <ng-container *ngIf="!isAuthPage; else authLayout">
       <div class="main-layout" [class.mobile-view]="isMobileView">
-        @if (!isMobileView) {
-          <app-sidebar></app-sidebar>
-        }
+        <!-- Sidebar on desktop -->
+        <app-sidebar *ngIf="!isMobileView"></app-sidebar>
+
+        <!-- Main content area -->
         <main class="main-content">
           <router-outlet></router-outlet>
         </main>
       </div>
-      @if (isMobileView) {
-        <nav class="mobile-nav">
-          <app-mobile-nav></app-mobile-nav>
-        </nav>
-      }
-    } @else {
+
+      <!-- Mobile nav -->
+      <nav class="mobile-nav" *ngIf="isMobileView">
+        <app-mobile-nav></app-mobile-nav>
+      </nav>
+    </ng-container>
+
+    <!-- Auth pages -->
+    <ng-template #authLayout>
       <div class="auth-layout">
         <router-outlet></router-outlet>
       </div>
-    }
+    </ng-template>
   </div>
 </ng-container>

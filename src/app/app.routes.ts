@@ -3,96 +3,130 @@ import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
+  // Public routes
   {
     path: 'login',
     loadComponent: () =>
       import('./core/Authcomponents/login/login.component').then(
-        (c) => c.LoginComponent
+        (m) => m.LoginComponent
       ),
   },
   {
     path: 'resetPassword',
     loadComponent: () =>
       import('./core/Authcomponents/reset/reset-password/reset-password.component').then(
-        (c) => c.ResetPasswordComponent
+        (m) => m.ResetPasswordComponent
       ),
   },
   {
     path: 'verifyCode',
     loadComponent: () =>
       import('./core/Authcomponents/reset/verfiycode/verfiycode.component').then(
-        (c) => c.VerfiycodeComponent
+        (m) => m.VerfiycodeComponent
       ),
   },
   {
     path: 'newPassword',
     loadComponent: () =>
       import('./core/Authcomponents/reset/new-password/new-password.component').then(
-        (c) => c.NewPasswordComponent
+        (m) => m.NewPasswordComponent
       ),
   },
-  {
-    path: 'layout',
-    canActivate: [authGuard],
-    children: [
-      {
-        path: 'home',
-        loadComponent: () =>
-          import('./Features/pages/home/home.component').then(
-            (c) => c.HomeComponent
-          ),
-      },
+
+  // Authenticated “shell” with its own layout component
+
+
+
+      // Admin-area
       {
         path: 'admin',
         canActivate: [roleGuard],
         data: { roles: ['Admin'] },
         children: [
           {
+            path: '',
+            redirectTo: 'dashboard',
+            pathMatch: 'full',
+          },
+          {
             path: 'dashboard',
             loadComponent: () =>
-              import('./Features/pages/admin/admin-dashboard/admin-dashboard.component').then(
-                (c) => c.AdminDashboardComponent
-              ),
+              import(
+                './Features/pages/admin/admin-dashboard/admin-dashboard.component'
+              ).then((m) => m.AdminDashboardComponent),
           },
           {
             path: 'category',
             loadComponent: () =>
               import('./Features/pages/category/category.component').then(
-                (c) => c.CategoryComponent
+                (m) => m.CategoryComponent
               ),
-          }
-        ]
+          },
+          {
+            path: 'orders',
+            loadComponent: () =>
+              import('./Features/pages/orders/orders.component').then(
+                (m) => m.OrdersComponent
+              ),
+          },
+          {
+            path: 'customer-review',
+            loadComponent: () =>
+              import('./Features/pages/review/review.component').then(
+                (m) => m.ReviewComponent
+              ),
+          },
+        ],
       },
+
+      // Seller-area
       {
         path: 'seller',
         canActivate: [roleGuard],
         data: { roles: ['Seller'] },
         children: [
           {
+            path: '',
+            redirectTo: 'dashboard',
+            pathMatch: 'full',
+          },
+          {
             path: 'dashboard',
             loadComponent: () =>
-              import('./Features/pages/seller/seller-dashboard/seller-dashboard.component').then(
-                (c) => c.SellerDashboardComponent
+              import(
+                './Features/pages/seller/seller-dashboard/seller-dashboard.component'
+              ).then((m) => m.SellerDashboardComponent),
+          },
+          {
+            path: 'orders',
+            loadComponent: () =>
+              import('./Features/pages/orders/orders.component').then(
+                (m) => m.OrdersComponent
               ),
-          }
-        ]
-      }
-    ]
-  },
+          },
+          {
+            path: 'customer-review',
+            loadComponent: () =>
+              import('./Features/pages/review/review.component').then(
+                (m) => m.ReviewComponent
+              ),
+          },
+        ],
+      },
+
+
+  // Unauthorized
   {
     path: 'unauthorized',
     loadComponent: () =>
       import('./shared/unauthorized/unauthorized.component').then(
-        (c) => c.UnauthorizedComponent
+        (m) => m.UnauthorizedComponent
       ),
   },
+
+  // Catch-all — redirect to login
   {
     path: '**',
-    redirectTo: 'login'
-  }
+    redirectTo: 'login',
+  },
 ];

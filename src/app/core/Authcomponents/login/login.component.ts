@@ -88,11 +88,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             next: (response) => {
               if (response.roles && response.roles.length > 0) {
                 if (response.roles.includes('Admin')) {
-                  this._router.navigate(['/layout/admin/dashboard']);
+                  this._router.navigate(['/admin/dashboard']);
                 } else if (response.roles.includes('Seller')) {
-                  this._router.navigate(['/layout/seller/dashboard']);
+                  this._router.navigate(['/seller/dashboard']);
                 } else {
-                  this._router.navigate(['/layout/home']);
+                  this._router.navigate(['/home']);
                 }
               } else {
                 this.removeToken();

@@ -19,12 +19,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class AuthApiService implements AuthAPI {
-<<<<<<< HEAD
-  
-=======
+
   private jwtHelper = new JwtHelperService();
 
->>>>>>> 4cd51dc79d1954dba0828a9a57363b21f04b88b1
   constructor(
     
     private _HttpClient: HttpClient,

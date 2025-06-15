@@ -1,18 +1,16 @@
-import { Product } from './../../../core/interface/product';
-import { Component, inject, OnInit } from '@angular/core';
-import { AuthApiService } from '../../../../../projects/auth-api/src/public-api';
-import { ProductsService } from '../../../core/service/products.service';
-import { CommonModule } from '@angular/common';
-import { Modal } from 'flowbite';
+import { Component, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { ProductsService } from '../../../core/service/products.service';
+import { Modal } from 'flowbite';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
+  selector: 'app-manage-products',
   imports: [CommonModule],
-  styleUrls: ['./category.component.scss']
+  templateUrl: './manage-products.component.html',
+  styleUrl: './manage-products.component.scss'
 })
-export class CategoryComponent implements OnInit {
+export class ManageProductsComponent {
 
   products: any[] = [];
   isAdmin = false;
@@ -120,5 +118,4 @@ confirmDelete() {
         }
       });
     }
-  }
-
+}

@@ -55,18 +55,19 @@ export const routes: Routes = [
                 './Features/pages/admin/admin-dashboard/admin-dashboard.component'
               ).then((m) => m.AdminDashboardComponent),
           },
-          {
-            path: 'category',
-            loadComponent: () =>
-              import('./Features/pages/category/category.component').then(
-                (m) => m.CategoryComponent
-              ),
-          },
+        
           {
             path: 'orders',
             loadComponent: () =>
               import('./Features/pages/orders/orders.component').then(
                 (m) => m.OrdersComponent
+              ),
+          },
+              {
+            path: 'manage-products',
+            loadComponent: () =>
+              import('./Features/pages/manage-products/manage-products.component').then(
+                (m) => m.ManageProductsComponent
               ),
           },
           {
@@ -102,6 +103,13 @@ export const routes: Routes = [
             loadComponent: () =>
               import('./Features/pages/orders/orders.component').then(
                 (m) => m.OrdersComponent
+              ),
+          },
+               {
+            path: 'manage-products',
+            loadComponent: () =>
+              import('./Features/pages/manage-products/manage-products.component').then(
+                (m) => m.ManageProductsComponent
               ),
           },
           {

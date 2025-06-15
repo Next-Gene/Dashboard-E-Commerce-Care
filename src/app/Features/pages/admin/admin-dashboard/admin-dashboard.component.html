@@ -1,0 +1,96 @@
+<div class="container">
+  @if (loading) {
+  <div class="flex justify-center items-center h-64">
+    <div class="loading-spinner"></div>
+  </div>
+  } @else if (error) {
+  <div class="error-container">
+    <p class="text-red-700">{{ error }}</p>
+    <button (click)="loadDashboardData()" class="mt-2">Retry</button>
+  </div>
+  } @else if (dashboardData) {
+  <div class="space-y-6">
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="summary-card">
+        <h3>Total Orders</h3>
+        <p>{{ dashboardData.totalOrders }}</p>
+      </div>
+      <div class="summary-card">
+        <h3>Total Revenue</h3>
+        <p>${{ dashboardData.totalRevenue }}</p>
+      </div>
+    </div>
+
+    <!-- Order Status Summary -->
+    @if (orderStatusSummary) {
+    <div class="card p-6">
+      <h2 class="text-xl font-bold mb-6 text-gray-900">Order Status Summary</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="status-card pending">
+          <h3>Pending</h3>
+          <p>{{ orderStatusSummary.pendingOrders }}</p>
+          <span class="revenue">${{ orderStatusSummary.pendingRevenue }}</span>
+        </div>
+        <div class="status-card processing">
+          <h3>Processing</h3>
+          <p>{{ orderStatusSummary.processingOrders }}</p>
+          <span class="revenue"
+            >${{ orderStatusSummary.processingRevenue }}</span
+          >
+        </div>
+        <div class="status-card completed">
+          <h3>Completed</h3>
+          <p>{{ orderStatusSummary.completedOrders }}</p>
+          <span class="revenue"
+            >${{ orderStatusSummary.completedRevenue }}</span
+          >
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Top Selling Products -->
+    @if (topSellingProducts.length > 0) {
+    <div class="table-container">
+      <div class="p-6">
+        <h2 class="text-xl font-bold mb-6 text-gray-900">
+          Top Selling Products
+        </h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Brand</th>
+              <th>Quantity Sold</th>
+              <th>Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (product of topSellingProducts; track product.productName) {
+            <tr>
+              <td>
+                <div class="product-cell">
+                  <img [src]="product.photoUrl" [alt]="product.productName" />
+                  <div class="text-sm font-medium text-gray-900">
+                    {{ product.productName }}
+                  </div>
+                </div>
+              </td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.brand }}</td>
+              <td>{{ product.totalQuantitySold }}</td>
+              <td>${{ product.totalRevenue.toFixed(2) }}</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>

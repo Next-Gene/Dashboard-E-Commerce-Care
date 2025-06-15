@@ -18,7 +18,9 @@ import { userRoleRes } from './interface/userRoleRes';
   providedIn: 'root',
 })
 export class AuthApiService implements AuthAPI {
+  
   constructor(
+    
     private _HttpClient: HttpClient,
     private _AuthLoginAPIAdapter: AuthLoginAPIAdapter,
     private _AuthRegisterAPIAdapter: AuthRegisterAPIAdapter

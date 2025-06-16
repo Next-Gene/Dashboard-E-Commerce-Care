@@ -24,6 +24,9 @@ export class ApiEndpoint {
   static PRODUCT_BRAND_DELETE = `${environment.baseUrl}/api/v1/product-brands`;
 
   // Category Endpoints
+  
   static CATEGORIES = `${environment.baseUrl}/api/v1/categories`;
+  static CATEGORY_PHOTO = `${environment.baseUrl}/api/v1/categories`;
+
 
 }

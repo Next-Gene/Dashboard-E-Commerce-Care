@@ -70,6 +70,13 @@ export const routes: Routes = [
               ),
           },
           {
+            path: 'manage-products',
+            loadComponent: () =>
+              import('./Features/pages/manage-products/manage-products.component').then(
+                (m) => m.ManageProductsComponent
+              ),
+          },
+          {
             path: 'customer-review',
             loadComponent: () =>
               import('./Features/pages/review/review.component').then(

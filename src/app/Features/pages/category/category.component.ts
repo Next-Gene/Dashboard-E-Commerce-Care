@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     ReactiveFormsModule,
   ],
-  styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
   Categories: Category[] = [];

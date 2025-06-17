@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ProductsAPI } from '../base/ProductsAPI';
 import { map, Observable } from 'rxjs';
 import { ProductsAdapter } from '../adapter/products.adapter';
-import { addProduct, APIProductsResponse, Product, updateProduct } from '../interface/product';
+import { addProduct, APIProductsResponse, Product, updateProduct } from '../interfaces/product';
 import { ApiEndpoint } from '../Enums/ApiEndpoint ';
 
 @Injectable({

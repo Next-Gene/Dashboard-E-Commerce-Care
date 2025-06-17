@@ -77,6 +77,13 @@ export const routes: Routes = [
               ),
           },
           {
+            path: 'manage-brands',
+            loadComponent: () =>
+              import('./Features/pages/manage-brands/manage-brands.component').then(
+                (m) => m.ManageBrandsComponent
+              ),
+          },
+          {
             path: 'customer-review',
             loadComponent: () =>
               import('./Features/pages/review/review.component').then(

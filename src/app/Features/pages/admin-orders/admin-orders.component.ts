@@ -23,121 +23,198 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
   dailyRevenue: DailyRevenue[] = [];
   monthlyRevenue: MonthlyRevenue[] = [];
 
-  // Overview metrics
   averageOrder = 0;
   totalRevenue = 0;
-  avgProcessingTime = 0;
-  avgItemsPerOrder = 0;
-  pendingOrdersPercent = 0;
-  rejectRate = 0;
+  totalOrders = 0;
+  completedPercent = 0;
+  cancelledPercent = 0;
+  pendingPercent = 0;
+  processingPercent = 0;
+  
   orders: {
     id: number;
     customer: string;
-    type: string;
     status: string;
     product: TopSellingProduct;
     total: number;
     date: string;
   }[] = [];
-  // Order status percentages
-  paidPercent = 0;
-  cancelledPercent = 0;
-  refundedPercent = 0;
+
+  revenueChart: Chart | null = null;
+  ordersStatusChart: Chart | null = null;
+
   statusClass(status: string) {
     return {
-      'text-green-600': status === 'Paid',
+      'text-green-600': status === 'Completed',
       'text-red-600': status === 'Cancelled',
-      'text-yellow-600': status === 'Refunded',
+      'text-yellow-600': status === 'Processing',
+      'text-blue-600': status === 'Pending',
     };
   }
+  
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.adminService.getDashboardData().subscribe((res) => {
-      this.averageOrder = res.averageOrder;
+      this.totalOrders = res.totalOrders;
       this.totalRevenue = res.totalRevenue;
-      this.avgProcessingTime = res.avgProcessingTime;
-      this.avgItemsPerOrder = res.avgItemsPerOrder;
-      this.pendingOrdersPercent = res.pendingOrdersPercent;
-      this.rejectRate = res.rejectRate;
+      this.averageOrder = this.totalRevenue / this.totalOrders;
+      
       this.orderStatusSummary = res.orderStatusSummary;
-  
-      // Calculate status percentages
-      const total = res.orderStatusSummary.completedOrders + res.orderStatusSummary.cancelledOrders + res.orderStatusSummary.refundedOrders;
-      this.paidPercent = Math.round((res.orderStatusSummary.completedOrders / total) * 100);
+      const total = res.totalOrders;
+      
+      this.completedPercent = Math.round((res.orderStatusSummary.completedOrders / total) * 100);
       this.cancelledPercent = Math.round((res.orderStatusSummary.cancelledOrders / total) * 100);
-      this.refundedPercent = Math.round((res.orderStatusSummary.refundedOrders / total) * 100);
+      this.topSellingProducts = res.topSellingProducts;
+      this.dailyRevenue = res.dailyRevenue;
+      this.monthlyRevenue = res.monthlyRevenue;
+      
+      this.loadOrders();
+      this.drawCharts(); // Draw charts after data is loaded
     });
-    this.adminService
-      .getTopSellingProducts()
-      .subscribe((data) => (this.topSellingProducts = data));
-    this.adminService
-      .getDailyRevenue()
-      .subscribe((data) => (this.dailyRevenue = data));
-    this.adminService
-      .getMonthlyRevenue()
-      .subscribe((data) => (this.monthlyRevenue = data));
-    this.loadOrders();
-  
   }
+  
   drawCharts() {
-    // Donut chart for shipping/pickups
-    if (this.orderStatusSummary) {
-      new Chart('receiptDonutChart', {
-        type: 'doughnut',
+    // Destroy existing charts if they exist
+    if (this.revenueChart) {
+      this.revenueChart.destroy();
+    }
+    if (this.ordersStatusChart) {
+      this.ordersStatusChart.destroy();
+    }
+
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart') as HTMLCanvasElement;
+    if (revenueCtx && this.dailyRevenue.length > 0) {
+      this.revenueChart = new Chart(revenueCtx, {
+        type: 'line',
         data: {
-          labels: ['Shipping', 'Pickups'],
+          labels: this.dailyRevenue.map(d => new Date(d.period).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})),
           datasets: [{
-            data: [
-              this.orderStatusSummary.shipping,
-              this.orderStatusSummary.pickups
-            ],
-            backgroundColor: ['#3B82F6', '#10B981'],
-            borderWidth: 0
+            label: 'Daily Revenue (EGP)',
+            data: this.dailyRevenue.map(d => d.revenue),
+            borderColor: '#3B82F6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderWidth: 2,
+            tension: 0.3,
+            fill: true,
+            pointBackgroundColor: '#3B82F6',
+            pointRadius: 4,
+            pointHoverRadius: 6
           }]
         },
         options: {
-          cutout: '80%',
-          plugins: { legend: { display: false } }
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `EGP ${(context.raw as number).toLocaleString()}`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return `EGP ${value}`;
+                }
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          }
         }
       });
     }
     
-    new Chart('dailyLineChart', {
-      type: 'line',
-      data: {
-        labels: this.dailyRevenue.map((d) => d.period),
-        datasets: [{ data: this.dailyRevenue.map((d) => d.revenue) }],
-      },
-    });
-    // Monthly line
-    new Chart('monthlyLineChart', {
-      type: 'line',
-      data: {
-        labels: this.monthlyRevenue.map((m) => m.period),
-        datasets: [{ data: this.monthlyRevenue.map((m) => m.revenue) }],
-      },
-    });
+    // Orders Status Chart
+    const ordersStatusCtx = document.getElementById('ordersStatusChart') as HTMLCanvasElement;
+    if (ordersStatusCtx && this.orderStatusSummary) {
+      this.ordersStatusChart = new Chart(ordersStatusCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Completed', 'Cancelled'],
+          datasets: [{
+            data: [
+              this.orderStatusSummary.completedOrders,
+              this.orderStatusSummary.cancelledOrders
+            ],
+            backgroundColor: [
+              '#10B981',
+              '#EF4444'
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          cutout: '70%',
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                usePointStyle: true,
+                pointStyle: 'circle',
+                padding: 20
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.label || '';
+                  const value = Number(context.raw) || 0;
+                  const total = (context.dataset.data as number[]).reduce((a, b) => Number(a) + Number(b), 0);
+                  const percentage = Math.round((value / total) * 100);
+                  return `${label}: ${value} (${percentage}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
   }
+  
   ngAfterViewInit() {
-    // Donut
-    this.drawCharts();
-
+    // Charts are now drawn after data is loaded in ngOnInit
   }
 
   private loadOrders() {
-    this.adminService.getDashboardData().subscribe((res) => {
-      // هنا نفترض أن الـ API يعيد مصفوفة orders حقيقية،
-      // وإلا يمكنك تحويل أي بيانات تريدها إلى شكل orders
-      this.orders = res.dailyRevenue.map((d, i) => ({
-        id: 1000 + i,
-        customer: 'Ali Okasha',
-        type: i % 2 ? 'Shipping' : 'Pickups',
-        status: ['Paid', 'Cancelled', 'Refunded'][i % 3],
-        product: res.topSellingProducts[i],
-        total: 590,
-        date: d.period, // أو أي حقل تاريخ مناسب
-      }));
+    this.orders = this.dailyRevenue.flatMap((d, i) => {
+      return Array.from({length: d.orderCount}, (_, j) => {
+        const productIndex = (i + j) % this.topSellingProducts.length;
+        const statuses = ['Completed'];
+        const statusIndex = (i + j) % statuses.length;
+        
+        return {
+          id: 1000 + i + j,
+          customer: ['Ali Okasha', 'Ahmed Hassan', 'Sara Ali', 'Mona Khaled'][(i + j) % 4],
+          status: statuses[statusIndex],
+          product: this.topSellingProducts[productIndex],
+          total: d.revenue / d.orderCount,
+          date: d.period
+        };
+      });
     });
+  }
+
+  ngOnDestroy() {
+    // Clean up charts when component is destroyed
+    if (this.revenueChart) {
+      this.revenueChart.destroy();
+    }
+    if (this.ordersStatusChart) {
+      this.ordersStatusChart.destroy();
+    }
   }
 }

@@ -5,7 +5,7 @@ import { ProductsService } from '../../../core/service/products.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { addProduct, Product } from '../../../core/interface/product';
+import { addProduct, Product } from '../../../core/interfaces/product';
 
 @Component({
   selector: 'app-manage-products',

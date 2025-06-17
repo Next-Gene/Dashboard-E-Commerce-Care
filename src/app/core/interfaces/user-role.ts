@@ -10,5 +10,5 @@ export interface UserRoleResponse {
 
 export interface ChangeUserRoleRequest {
   email: string;
-  role: string;
+  NewRole: string;
 }

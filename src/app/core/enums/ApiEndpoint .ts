@@ -27,6 +27,9 @@ export class ApiEndpoint {
   static CATEGORIES = `${environment.baseUrl}/api/v1/categories`;
   static CATEGORY_PHOTO = `${environment.baseUrl}/api/v1/categories`;
 
+  // Review Endpoints
+  static REVIEW = 'assets/review.json'; 
+
   
 
 }

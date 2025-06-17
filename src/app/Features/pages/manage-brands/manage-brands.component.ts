@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { BrandsService } from '../../../core/service/Brands.service';
 import { Brandsbody, BrandsResponse } from '../../../core/interfaces/Brands';
-import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { BrandsService } from '../../../core/services/Brands.service';
 
 @Component({
   selector: 'app-manage-brands',

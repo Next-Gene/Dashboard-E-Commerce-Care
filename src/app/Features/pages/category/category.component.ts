@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../../../core/interfaces/category';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CategoryService } from '../../../core/service/category.service';
 import { CommonModule } from '@angular/common';
+import { CategoryService } from '../../../core/services/category.service';
 
 @Component({
   selector: 'app-category',

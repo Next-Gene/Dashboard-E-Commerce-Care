@@ -1,1 +1,61 @@
-<p>review works!</p>
+<div class="max-w-5xl mx-auto p-6">
+  <h2 class="text-xl font-semibold mb-6">Customer Review</h2>
+
+  <table class="w-full table-auto border-collapse">
+    <thead>
+      <tr class="text-left border-b">
+        <th class="pb-2">Review</th>
+        <th class="pb-2">Product</th>
+        <th class="pb-2">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (review of reviews; track review.id) {
+        <tr class="border-b border-gray-300 hover:bg-gray-100">
+          <!-- Review -->
+          <td class="py-4">
+            <div class="flex items-start gap-3">
+              <img [src]="review.images" class="w-10 h-10 rounded-full border"/>
+
+              <div>
+                <div class="font-semibold text-sm text-black">
+                  {{ review.name }}
+                  <span class="text-xs text-gray-400 ml-2">{{ review.time }}</span>
+                </div>
+                <p class="text-xs text-gray-600 mt-1">{{ review.comment }}</p>
+              </div>
+            </div>
+          </td>
+
+          <!-- Product -->
+          <td class="py-4">
+            <div class="flex items-center gap-2">
+              <img [src]="review.product.image" class="w-6 h-10 object-contain" />
+              <span class="text-sm text-black">{{ review.product.name }}</span>
+            </div>
+          </td>
+
+          <!-- Rating -->
+          <td class="py-4">
+            <span class="font-bold text-sm">{{ review.rating.toFixed(1) }}</span>
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <svg
+                class="w-4 h-4 inline ml-1"
+                [ngClass]="{
+                  'text-yellow-400': review.rating >= star,
+                  'text-gray-300': review.rating < star
+                }"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.112 3.421a1 1 0 00.95.69h3.6c.969 0 1.371 1.24.588 1.81l-2.915 2.12a1 1 0 00-.364 1.118l1.112 3.421c.3.921-.755 1.688-1.538 1.118l-2.915-2.12a1 1 0 00-1.175 0l-2.915 2.12c-.783.57-1.838-.197-1.538-1.118l1.112-3.421a1 1 0 00-.364-1.118L2.799 8.848c-.783-.57-.38-1.81.588-1.81h3.6a1 1 0 00.95-.69l1.112-3.421z"
+                />
+              </svg>
+            </ng-container>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

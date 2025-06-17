@@ -1,4 +1,4 @@
-import { UserDataServiceService } from './../../../service/user-data-service.service';
+import { UserDataServiceService } from './../../../services/user-data-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, takeUntil } from 'rxjs';
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';

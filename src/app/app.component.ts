@@ -14,7 +14,7 @@ import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MobileNavComponent } from './core/Layout/mobile-nav/mobile-nav.component';
 import { SidebarComponent } from './core/Layout/sidebar/sidebar.component';
-import { UserDataServiceService } from './core/service/user-data-service.service';
+import { UserDataServiceService } from './core/services/user-data-service.service';
 import { filter } from 'rxjs/operators';
 
 @Component({

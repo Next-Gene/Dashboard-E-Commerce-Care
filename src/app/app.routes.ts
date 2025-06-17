@@ -14,106 +14,103 @@ export const routes: Routes = [
   {
     path: 'resetPassword',
     loadComponent: () =>
-      import('./core/Authcomponents/reset/reset-password/reset-password.component').then(
-        (m) => m.ResetPasswordComponent
-      ),
+      import(
+        './core/Authcomponents/reset/reset-password/reset-password.component'
+      ).then((m) => m.ResetPasswordComponent),
   },
   {
     path: 'verifyCode',
     loadComponent: () =>
-      import('./core/Authcomponents/reset/verfiycode/verfiycode.component').then(
-        (m) => m.VerfiycodeComponent
-      ),
+      import(
+        './core/Authcomponents/reset/verfiycode/verfiycode.component'
+      ).then((m) => m.VerfiycodeComponent),
   },
   {
     path: 'newPassword',
     loadComponent: () =>
-      import('./core/Authcomponents/reset/new-password/new-password.component').then(
-        (m) => m.NewPasswordComponent
-      ),
+      import(
+        './core/Authcomponents/reset/new-password/new-password.component'
+      ).then((m) => m.NewPasswordComponent),
   },
 
   // Authenticated “shell” with its own layout component
 
-
-
-      // Admin-area
+  // Admin-area
+  {
+    path: 'admin',
+    canActivate: [roleGuard],
+    data: { roles: ['Admin'] },
+    children: [
       {
-        path: 'admin',
-        canActivate: [roleGuard],
-        data: { roles: ['Admin'] },
-        children: [
-          {
-            path: '',
-            redirectTo: 'dashboard',
-            pathMatch: 'full',
-          },
-          {
-            path: 'dashboard',
-            loadComponent: () =>
-              import(
-                './Features/pages/admin/admin-dashboard/admin-dashboard.component'
-              ).then((m) => m.AdminDashboardComponent),
-          },
-          {
-            path: 'category',
-            loadComponent: () =>
-              import('./Features/pages/category/category.component').then(
-                (m) => m.CategoryComponent
-              ),
-          },
-          {
-            path: 'orders',
-            loadComponent: () =>
-              import('./Features/pages/orders/orders.component').then(
-                (m) => m.OrdersComponent
-              ),
-          },
-          {
-            path: 'customer-review',
-            loadComponent: () =>
-              import('./Features/pages/review/review.component').then(
-                (m) => m.ReviewComponent
-              ),
-          },
-        ],
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
       },
-
-      // Seller-area
       {
-        path: 'seller',
-        canActivate: [roleGuard],
-        data: { roles: ['Seller'] },
-        children: [
-          {
-            path: '',
-            redirectTo: 'dashboard',
-            pathMatch: 'full',
-          },
-          {
-            path: 'dashboard',
-            loadComponent: () =>
-              import(
-                './Features/pages/seller/seller-dashboard/seller-dashboard.component'
-              ).then((m) => m.SellerDashboardComponent),
-          },
-          {
-            path: 'orders',
-            loadComponent: () =>
-              import('./Features/pages/orders/orders.component').then(
-                (m) => m.OrdersComponent
-              ),
-          },
-          {
-            path: 'customer-review',
-            loadComponent: () =>
-              import('./Features/pages/review/review.component').then(
-                (m) => m.ReviewComponent
-              ),
-          },
-        ],
+        path: 'dashboard',
+        loadComponent: () =>
+          import(
+            './Features/pages/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
       },
+      {
+        path: 'category',
+        loadComponent: () =>
+          import('./Features/pages/category/category.component').then(
+            (m) => m.CategoryComponent
+          ),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./Features/pages/admin-orders/admin-orders.component').then(
+            (m) => m.AdminOrdersComponent
+          ),
+      },
+      {
+        path: 'customer-review',
+        loadComponent: () =>
+          import('./Features/pages/review/review.component').then(
+            (m) => m.ReviewComponent
+          ),
+      },
+    ],
+  },
 
+  // Seller-area
+  {
+    path: 'seller',
+    canActivate: [roleGuard],
+    data: { roles: ['Seller'] },
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import(
+            './Features/pages/seller-dashboard/seller-dashboard.component'
+          ).then((m) => m.SellerDashboardComponent),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./Features/pages/seller-orders/seller-orders.component').then(
+            (m) => m.SellerOrdersComponent
+          ),
+      },
+      {
+        path: 'customer-review',
+        loadComponent: () =>
+          import('./Features/pages/review/review.component').then(
+            (m) => m.ReviewComponent
+          ),
+      },
+    ],
+  },
 
   // Unauthorized
   {

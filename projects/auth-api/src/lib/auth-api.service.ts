@@ -20,8 +20,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthApiService implements AuthAPI {
   private jwtHelper = new JwtHelperService();
-
   constructor(
+    
     private _HttpClient: HttpClient,
     private _AuthLoginAPIAdapter: AuthLoginAPIAdapter,
     private _AuthRegisterAPIAdapter: AuthRegisterAPIAdapter

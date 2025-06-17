@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APICategoriesResponse, Category } from '../interfaces/category';
 import { map, Observable, switchMap, of, tap } from 'rxjs';
-import { ApiEndpoint } from '../Enums/ApiEndpoint ';
+import { ApiEndpoint } from '../enums/ApiEndpoint ';
 
 @Injectable({
   providedIn: 'root'

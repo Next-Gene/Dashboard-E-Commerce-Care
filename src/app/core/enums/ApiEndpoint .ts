@@ -29,5 +29,9 @@ export class ApiEndpoint {
   static CATEGORY_PHOTO = `${environment.baseUrl}/api/v1/categories`;
 
   static REVIEW = 'assets/review.json';
+  static USE_ROLES = `${environment.baseUrl}/api/v1/Auth/user-roles`;
+  static AVAILABLE_ROLES = `${environment.baseUrl}/api/v1/Auth/available-roles`;
+  static CHANGE_USER_ROLES = `${environment.baseUrl}/api/v1/Auth/change-user-role`;
+
 
 }

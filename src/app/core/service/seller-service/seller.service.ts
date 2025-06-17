@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint } from '../../Enums/ApiEndpoint ';
+import { ApiEndpoint } from '../../enums/ApiEndpoint ';
 import { DashboardDataRes, TopSellingProduct } from '../../interfaces/DashboardDataRes';
 
 @Injectable({

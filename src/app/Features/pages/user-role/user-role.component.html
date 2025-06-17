@@ -1,0 +1,75 @@
+<div class="max-w-4xl mx-auto mt-10 p-8 bg-white rounded-lg shadow space-y-8">
+  <h2 class="text-2xl font-bold text-primary-700">Manage User Roles</h2>
+
+  <form [formGroup]="roleForm" (ngSubmit)="changeUserRole()" class="space-y-6">
+    
+    <!-- Email Field -->
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700">User Email</label>
+      <div class="mt-2 flex gap-2">
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          class="w-full border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:ring-2 focus:ring-primary-500"
+          placeholder="Enter email..."
+        />
+        <button
+          type="button"
+          (click)="getUserRoles()"
+          class="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700"
+        >
+          
+        </button>
+      </div>
+      @if (roleForm.get('email')?.invalid && roleForm.get('email')?.touched) {
+        <p class="text-red-500 text-sm mt-1">Please enter a valid email.</p>
+      }
+    </div>
+
+    <!-- Current Roles Display -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Current Roles</label>
+      <div class="mt-2 flex flex-wrap gap-2">
+        @if (currentRoles.length > 0) {
+          @for (role of currentRoles; track role) {
+            <span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm shadow">
+              {{ role }}
+            </span>
+          }
+        } @else {
+          <span class="text-gray-400 text-sm italic">No roles assigned.</span>
+        }
+      </div>
+    </div>
+
+    <!-- Role Selector -->
+    <div>
+      <label for="role" class="block text-sm font-medium text-gray-700">Assign New Role</label>
+      <select
+        id="role"
+        formControlName="role"
+        class="mt-2 w-full border border-gray-300 px-4 py-2 rounded-md shadow-sm bg-white focus:ring-2 focus:ring-primary-500"
+      >
+        <option value="" disabled>Select a role...</option>
+        @for (role of availableRoles; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+      @if (roleForm.get('role')?.invalid && roleForm.get('role')?.touched) {
+        <p class="text-red-500 text-sm mt-1">Please select a role.</p>
+      }
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-right">
+      <button
+        type="submit"
+        [disabled]="roleForm.invalid"
+        class="bg-primary-600 text-white px-6 py-2 rounded-md hover:bg-primary-700 disabled:opacity-50 transition"
+      >
+        Change Role
+      </button>
+    </div>
+  </form>
+</div>

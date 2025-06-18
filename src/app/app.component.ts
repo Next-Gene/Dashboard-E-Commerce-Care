@@ -16,6 +16,7 @@ import { MobileNavComponent } from './core/Layout/mobile-nav/mobile-nav.componen
 import { SidebarComponent } from './core/Layout/sidebar/sidebar.component';
 import { UserDataServiceService } from './core/services/user-data-service.service';
 import { filter } from 'rxjs/operators';
+import { LoginComponent } from "./core/Authcomponents/login/login.component";
 
 @Component({
   selector: 'app-root',
@@ -24,8 +25,9 @@ import { filter } from 'rxjs/operators';
     CommonModule,
     RouterOutlet,
     MobileNavComponent,
-    SidebarComponent
-  ],
+    SidebarComponent,
+    LoginComponent
+],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

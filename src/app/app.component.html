@@ -1,13 +1,13 @@
-<ng-container *ngIf="initialized">
+<ng-container class="dark:bg-[#292929]" *ngIf="initialized">
   <div class="app-container">
     <!-- Non-auth pages -->
     <ng-container *ngIf="!isAuthPage; else authLayout">
-      <div class="main-layout" [class.mobile-view]="isMobileView">
+      <div class="main-layout " [class.mobile-view]="isMobileView">
         <!-- Sidebar on desktop -->
         <app-sidebar *ngIf="!isMobileView"></app-sidebar>
 
         <!-- Main content area -->
-        <main class="main-content">
+        <main class="main-content  dark:bg-[#292929]">
           <router-outlet></router-outlet>
         </main>
       </div>
@@ -20,7 +20,7 @@
 
     <!-- Auth pages -->
     <ng-template #authLayout>
-      <div class="auth-layout">
+      <div class="auth-layout ">
         <router-outlet></router-outlet>
       </div>
     </ng-template>

@@ -1,11 +1,12 @@
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Component, HostListener, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthApiService } from '../../../../../projects/auth-api/src/public-api';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ThemeService } from '../../services/theme.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -22,6 +23,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userRole: string = '';
   isAdmin: boolean = false;
   isSeller: boolean = false;
+  private _ThemeService = inject(ThemeService);
+  isdarkmode=false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -32,6 +35,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.checkScreenSize();
     this.checkUserRole();
+      this._ThemeService.darkMode$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isDark) => {
+        this.isdarkmode = isDark;
+      });
+  }
+ toggleTheme() {
+    this._ThemeService.toggleDarkMode();
   }
 
   @HostListener('window:resize', ['$event'])

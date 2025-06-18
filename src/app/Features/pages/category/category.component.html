@@ -15,19 +15,19 @@
 <!-- Categories Grid -->
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 max-w-[1200px] mx-auto">
   @for (category of Categories; track category.id) {
-    <div class="relative group bg-white rounded-xl shadow-lg overflow-hidden w-full h-36 cursor-pointer transition-all duration-300 flex">
+    <div class="relative group bg-white dark:bg-[#303030]  rounded-xl shadow-lg overflow-hidden w-full h-36 cursor-pointer transition-all duration-300 flex">
       
       <!-- Image Section -->
       <div class="w-2/5 h-full">
-        <img [src]="category.photoUrl" [alt]="category.name" class="w-full h-full object-cover" />
+        <img [src]="category.photoUrl" [alt]="category.name" class="w-full  h-full object-cover" />
       </div>
 
       <!-- Text Content -->
       <div class="w-3/5 p-4 flex flex-col justify-center text-left">
-        <h3 class="text-base font-bold text-[#0070CD] truncate">
+        <h3 class="text-base font-bold  dark:text-white duration-300 transition-colors text-[#0070CD] truncate">
           {{ category.name }}
         </h3>
-        <p class="text-sm font-medium text-[#00366A] leading-snug line-clamp-3">
+        <p class="text-sm font-medium  dark:text-gray-300 duration-300 transition-colors text-[#00366A] leading-snug line-clamp-3">
           {{ category.description }}
         </p>
       </div>

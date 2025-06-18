@@ -14,11 +14,16 @@
         border-bottom: 2px solid #E5E7EB;
       }
     }
-    tbody {
-      tr:hover {
-        background-color: #F9FAFB;
-      }
-    }
+tbody {
+  tr:hover {
+    background-color: #F9FAFB;
+    transition-duration: 300ms;
+  }
+}
+:host-context(.dark) table tbody tr:hover {
+  background-color: #353535; // نفس خلفية الدارك
+  transition-duration: 300ms;
+}
   }
   
   // Sidebar headings

@@ -1,28 +1,28 @@
 <div class="max-w-5xl mx-auto p-6">
-  <h2 class="text-xl font-semibold mb-6">Customer Review</h2>
+  <h2 class="text-xl dark:text-white duration-300 transition-colors font-semibold mb-6">Customer Review</h2>
 
   <table class="w-full table-auto border-collapse">
     <thead>
       <tr class="text-left border-b">
-        <th class="pb-2">Review</th>
-        <th class="pb-2">Product</th>
-        <th class="pb-2">Rating</th>
+        <th class="dark:text-white duration-300 transition-colors pb-2">Review</th>
+        <th class="dark:text-white duration-300 transition-colors pb-2">Product</th>
+        <th class="dark:text-white duration-300 transition-colors pb-2">Rating</th>
       </tr>
     </thead>
     <tbody>
       @for (review of reviews; track review.id) {
-        <tr class="border-b border-gray-300 hover:bg-gray-100">
+        <tr class="border-b border-gray-300 dark:hover:bg-[#353535] duration-300 hover:bg-gray-100">
           <!-- Review -->
           <td class="py-4">
             <div class="flex items-start gap-3">
               <img [src]="review.images" class="w-10 h-10 rounded-full border"/>
 
               <div>
-                <div class="font-semibold text-sm text-black">
+                <div class="font-semibold dark:text-white duration-300 transition-colors text-sm text-black">
                   {{ review.name }}
-                  <span class="text-xs text-gray-400 ml-2">{{ review.time }}</span>
+                  <span class="text-xs dark:text-gray-200 duration-300 transition-colors text-gray-400 ml-2">{{ review.time }}</span>
                 </div>
-                <p class="text-xs text-gray-600 mt-1">{{ review.comment }}</p>
+                <p class="text-xs dark:text-gray-300 duration-300 transition-colors text-gray-600 mt-1">{{ review.comment }}</p>
               </div>
             </div>
           </td>
@@ -31,13 +31,13 @@
           <td class="py-4">
             <div class="flex items-center gap-2">
               <img [src]="review.product.image" class="w-6 h-10 object-contain" />
-              <span class="text-sm text-black">{{ review.product.name }}</span>
+              <span class="text-sm dark:text-white duration-300 transition-colors text-black">{{ review.product.name }}</span>
             </div>
           </td>
 
           <!-- Rating -->
           <td class="py-4">
-            <span class="font-bold text-sm">{{ review.rating.toFixed(1) }}</span>
+            <span class="font-bold dark:text-green-400 duration-300 transition-colors text-sm">{{ review.rating.toFixed(1) }}</span>
             <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
               <svg
                 class="w-4 h-4 inline ml-1"

@@ -17,6 +17,11 @@ $border-radius: 8px;
   display: flex;
   background-color: $primary-bg;
   position: relative;
+  transition-duration: 300ms;
+}
+:host-context(.dark) .main-layout {
+  background-color: #292929; 
+  transition-duration: 300ms;
 }
 
 .sidebar {
@@ -92,6 +97,10 @@ $border-radius: 8px;
   @media (max-width: 768px) {
     padding: 1rem;
   }
+}
+:host-context(.dark) .auth-layout {
+  background: #292929 !important;
+  transition-duration: 300ms;
 }
 
 // Responsive Design

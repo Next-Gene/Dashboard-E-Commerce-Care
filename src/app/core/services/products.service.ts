@@ -2,15 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductsAPI } from '../base/ProductsAPI';
 import { map, Observable } from 'rxjs';
-<<<<<<< HEAD:src/app/core/service/products.service.ts
-import { ProductsAdapter } from '../adapter/products.adapter';
-import { addProduct, APIProductsResponse, Product, updateProduct } from '../interfaces/product';
-import { ApiEndpoint } from '../enums/ApiEndpoint ';
-=======
 import { ProductsAdapter } from '../adapters/products.adapter';
-import { addProduct, APIProductsResponse, Product, updateProduct } from '../interfaces/product';
-import { ApiEndpoint } from '../Enums/ApiEndpoint ';
->>>>>>> da0567dd6287350dc7dcb95e5260a26adfbf920c:src/app/core/services/products.service.ts
+import {
+  addProduct,
+  APIProductsResponse,
+  Product,
+  updateProduct,
+} from '../interfaces/product';
+import { ApiEndpoint } from '../Enums/ApiEndpoint';
 
 @Injectable({
   providedIn: 'root',
@@ -55,34 +54,35 @@ export class ProductsService implements ProductsAPI {
     );
   }
 
-  addProduct(product: addProduct): Observable<{ message: string; data: { id: number } }> {
-    return this._httpClient.post<{ message: string; data: { id: number } }>(ApiEndpoint.PRODUCTS, product);
+  addProduct(
+    product: addProduct
+  ): Observable<{ message: string; data: { id: number } }> {
+    return this._httpClient.post<{ message: string; data: { id: number } }>(
+      ApiEndpoint.PRODUCTS,
+      product
+    );
   }
-  
+
   updateProduct(id: string, product: updateProduct) {
     return this._httpClient.put(`${ApiEndpoint.PRODUCTS}/${id}`, product, {
-      responseType: 'text' as 'json'  // 👈 هنا
+      responseType: 'text' as 'json', // 👈 هنا
     });
   }
-  
-  
+
   deleteProduct(id: string): Observable<void> {
     return this._httpClient.delete<void>(`${ApiEndpoint.PRODUCTS}/${id}`, {
-      responseType: 'text' as 'json'
+      responseType: 'text' as 'json',
     });
-
   }
 
   uploadProductPhoto(id: string, formData: FormData): Observable<any> {
-    return this._httpClient.post(`${ApiEndpoint.PRODUCTS}/${id}/photo`, formData);
-
-
-
+    return this._httpClient.post(
+      `${ApiEndpoint.PRODUCTS}/${id}/photo`,
+      formData
+    );
   }
 
   getProductBrands(): Observable<any> {
     return this._httpClient.get<any>(`${ApiEndpoint.PRODUCT_BRANDS}`);
   }
-
-
 }

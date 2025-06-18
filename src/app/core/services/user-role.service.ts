@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ChangeUserRoleRequest, UserRoleResponse } from '../interfaces/user-role';
-import { ApiEndpoint } from '../enums/ApiEndpoint ';
+import {
+  ChangeUserRoleRequest,
+  UserRoleResponse,
+} from '../interfaces/user-role';
+import { ApiEndpoint } from '../Enums/ApiEndpoint';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserRoleService {
-
-  constructor( private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) {}
   getUserRoles(email: string): Observable<UserRoleResponse> {
     return this._httpClient.get<UserRoleResponse>(
       `${ApiEndpoint.USE_ROLES}/${email}`

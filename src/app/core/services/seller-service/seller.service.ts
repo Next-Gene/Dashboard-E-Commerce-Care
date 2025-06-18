@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint } from '../../enums/ApiEndpoint ';
-import { DashboardDataRes, TopSellingProduct } from '../../interfaces/DashboardDataRes';
+import { ApiEndpoint } from '../../Enums/ApiEndpoint';
+import {
+  DashboardDataRes,
+  TopSellingProduct,
+} from '../../interfaces/DashboardDataRes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SellerService {
   constructor(private http: HttpClient) {}
@@ -16,10 +19,14 @@ export class SellerService {
   }
 
   getTopSellingProducts(): Observable<TopSellingProduct[]> {
-    return this.http.get<TopSellingProduct[]>(ApiEndpoint.SELLER__top_selling_products);
+    return this.http.get<TopSellingProduct[]>(
+      ApiEndpoint.SELLER__top_selling_products
+    );
   }
 
   getDailyRevenue(): Observable<DashboardDataRes['dailyRevenue']> {
-    return this.http.get<DashboardDataRes['dailyRevenue']>(ApiEndpoint.SELLER_DAILY_REVENUE);
+    return this.http.get<DashboardDataRes['dailyRevenue']>(
+      ApiEndpoint.SELLER_DAILY_REVENUE
+    );
   }
-} 
+}

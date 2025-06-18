@@ -65,11 +65,7 @@ export class UserRoleComponent implements OnDestroy {
   }
 
   loadRolesData(): void {
-    this.isLoading = true;
-    this.toastr.info('Loading roles data...', 'Please wait', {
-      timeOut: 2000,
-      positionClass: 'toast-top-right'
-    });
+
 
     Promise.all([
       this.getAvailableRoles(),

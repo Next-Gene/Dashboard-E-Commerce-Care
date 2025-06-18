@@ -24,9 +24,14 @@ export class ApiEndpoint {
   static PRODUCT_BRAND_DELETE = `${environment.baseUrl}/api/v1/product-brands`;
 
   // Category Endpoints
+  
   static CATEGORIES = `${environment.baseUrl}/api/v1/categories`;
   static CATEGORY_PHOTO = `${environment.baseUrl}/api/v1/categories`;
 
+  static REVIEW = 'assets/review.json';
+  static USE_ROLES = `${environment.baseUrl}/api/v1/Auth/user-roles`;
+  static AVAILABLE_ROLES = `${environment.baseUrl}/api/v1/Auth/available-roles`;
+  static CHANGE_USER_ROLES = `${environment.baseUrl}/api/v1/Auth/change-user-role`;
   
 
 }

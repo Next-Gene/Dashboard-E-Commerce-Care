@@ -1,17 +1,17 @@
-<div class="min-h-screen flex flex-col justify-center items-center w-full bg-gradient-to-br from-blue-50 to-white p-4">
-  <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg transform transition-all hover:scale-105 duration-300">
+<div class="min-h-screen flex flex-col justify-center items-center w-full bg-gradient-to-br dark:bg-[#292929] duration-300 transition-colors">
+  <div class="w-full max-w-md p-8 bg-white rounded-2xl dark:bg-[#313131] shadow-lg transform transition-all hover:scale-105 duration-300">
     <!-- Logo -->
     <img class="w-64 mx-auto mb-8" src="/prime care.png" alt="prime care Logo">
-    <h2 class="text-center text-3xl font-semibold mb-8 text-[#40568E] tracking-wide">SELLER CENTER</h2>
+    <h2 class="text-center text-3xl dark:text-white duration-300 transition-colors font-semibold mb-8 text-[#40568E] tracking-wide">SELLER CENTER</h2>
 
     <!-- Verification Form -->
     <form [formGroup]="verifycode" (ngSubmit)="submit2()" class="space-y-6">
       <div class="space-y-4">
-        <h3 class="text-xl font-medium text-gray-700 mb-6">Enter Verification Code</h3>
+        <h3 class="text-xl font-medium dark:text-white duration-300 transition-colors text-gray-700 mb-6">Enter Verification Code</h3>
 
         <!-- Email Field -->
         <div class="space-y-2">
-          <label class="text-sm font-medium text-gray-700">Enter Email</label>
+          <label class="text-sm font-medium dark:text-gray-300 duration-300 transition-colors text-gray-700">Enter Email</label>
           <input formControlName="email" type="email"
             class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200 bg-gray-50"
             aria-label="Email Address">
@@ -20,7 +20,7 @@
 
         <!-- Verification Code Field -->
         <div class="space-y-2">
-          <p class="text-sm text-gray-600">For your security, we have sent the code to your email n******&#64;gmail.com</p>
+          <p class="text-sm dark:text-gray-300 duration-300 transition-colors text-gray-600">For your security, we have sent the code to your email n******&#64;gmail.com</p>
           <input formControlName="code" type="text"
             class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200 bg-gray-50 mt-2"
             aria-label="Verification Code"

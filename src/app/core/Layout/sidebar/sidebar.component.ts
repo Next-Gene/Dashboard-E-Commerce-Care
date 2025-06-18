@@ -6,6 +6,7 @@ import {
   PLATFORM_ID,
   OnInit,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 import { AuthApiService } from '../../../../../projects/auth-api/src/public-api';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ThemeService } from '../../services/theme.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -29,6 +31,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userRole: string = '';
   isAdmin: boolean = false;
   isSeller: boolean = false;
+    private _ThemeService = inject(ThemeService);
+  isdarkmode=false;
+
   isSettingsDropdownOpen: boolean = false;
 
   constructor(
@@ -36,10 +41,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private authService: AuthApiService,
     private router: Router
   ) {}
-
+ toggleTheme() {
+    this._ThemeService.toggleDarkMode();
+  }
   ngOnInit() {
     this.checkScreenSize();
     this.checkUserRole();
+     this._ThemeService.darkMode$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isDark) => {
+        this.isdarkmode = isDark;
+      });
   }
 
   @HostListener('window:resize', ['$event'])

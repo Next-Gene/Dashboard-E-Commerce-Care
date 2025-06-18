@@ -152,3 +152,22 @@
     }
   }
 }
+.custom-icon {
+  background-color: white !important; // اللون الخارجي الداكن
+  border-radius: 0.75rem;               // تقريب الزوايا
+  padding: 6px;
+}
+
+.custom-icon i {
+  background-color: #A6ABC8;            // خلفية داخلية فاتحة
+  border-radius: 0.5rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #A6ABC8;                       // لون الأيقونة الداكن
+}
+.custom-icon i:active{
+  color: #A6ABC8 !important; // لون الأيقونة الفاتح عند الضغط
+  }

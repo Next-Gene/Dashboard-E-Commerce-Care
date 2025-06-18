@@ -17,6 +17,7 @@ export class ProductsAdapter {
       photoUrl: item.photoUrl,
       productPhotos: item.productPhotos || [],
       productBrand: item.productBrand || '',
+      
     }));
   }
 }

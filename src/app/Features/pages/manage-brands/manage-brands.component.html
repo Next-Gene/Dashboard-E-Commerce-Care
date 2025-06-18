@@ -2,7 +2,7 @@
 <div class="bg-gradient-to-r from-[#0070CD] to-[#AEE2FF] p-4 rounded-lg m-4">
   <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
     <div>
-      <h1 class="text-xl font-bold text-white">Manage Brands</h1>
+      <h1 class="text-xl font-bold text-[var(--secondary-color)]">Manage Brands</h1>
       <p class="text-white/80 text-sm">View and manage your product brands</p>
     </div>
     
@@ -96,45 +96,11 @@
       Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, totalItems) }} of {{ totalItems }} entries
     </div>
     
-    <div class="flex items-center gap-2">
-      <!-- Previous Button -->
-      <button
-        (click)="previousPage()"
-        [disabled]="currentPage === 1"
-        class="flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200"
-        [class]="currentPage === 1 ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 hover:border-gray-300'"
-      >
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        Previous
-      </button>
-
-      <!-- Page Numbers -->
-      <div class="flex items-center gap-1">
-        <button
-          *ngFor="let page of pages"
-          (click)="goToPage(page)"
-          class="w-7 h-7 rounded-md text-xs font-medium transition-all duration-200 flex items-center justify-center"
-          [class]="page === currentPage ? 'bg-gradient-to-r from-[#0070CD] to-[#AEE2FF] text-white shadow-sm' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 hover:border-gray-300'"
-        >
-          {{ page }}
-        </button>
-      </div>
-
-      <!-- Next Button -->
-      <button
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
-        class="flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200"
-        [class]="currentPage === totalPages ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 hover:border-gray-300'"
-      >
-        Next
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </button>
-    </div>
+  <app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)"
+></app-pagination>
 
     <!-- Page Size Selector -->
     <div class="flex items-center gap-2 text-xs text-gray-500">

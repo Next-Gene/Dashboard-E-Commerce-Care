@@ -7,11 +7,12 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { addProduct, Product } from '../../../core/interfaces/product';
 import { ProductsService } from '../../../core/services/products.service';
 import { CategoryService } from '../../../core/services/category.service';
+import { PaginationComponent } from "../../../shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-manage-products',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PaginationComponent],
   templateUrl: './manage-products.component.html',
   styleUrl: './manage-products.component.scss'
 })
@@ -26,7 +27,9 @@ export class ManageProductsComponent {
 
   private toastr = inject(ToastrService);
   private searchSubject = new Subject<string>();
-
+onPageChange(page: number): void {
+  this.currentPage = page;
+}
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 0;

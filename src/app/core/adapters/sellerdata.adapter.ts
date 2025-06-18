@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
-import {
-  APIDashboardDataResponse,
-  DashboardDataRes,
-} from '../interfaces/DashboardDataRes';
+import { APISellerDataResponse, SellerDataRes } from '../interfaces/SellerDataRes';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class DashboardDataAdapter {
-  constructor() {}
-  DashboardDataAdapter(res: APIDashboardDataResponse): DashboardDataRes {
+export class SellerDataAdapter {
+  SellerDataAdapter(res: APISellerDataResponse): SellerDataRes {
     return {
       totalOrders: res.totalOrders,
       totalRevenue: res.totalRevenue,
       orderStatusSummary: res.orderStatusSummary,
       topSellingProducts: res.topSellingProducts,
-      dailyRevenue: res.dailyRevenue,
       monthlyRevenue: res.monthlyRevenue,
       averageOrder: res.averageOrder,
       avgProcessingTime: res.avgProcessingTime,
@@ -25,3 +20,4 @@ export class DashboardDataAdapter {
     };
   }
 }
+

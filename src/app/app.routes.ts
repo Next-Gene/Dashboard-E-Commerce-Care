@@ -35,54 +35,68 @@ export const routes: Routes = [
 
   // Authenticated “shell” with its own layout component
 
-      // Admin-area
+  // Admin-area
+  {
+    path: 'admin',
+    canActivate: [roleGuard],
+    data: { roles: ['Admin'] },
+    children: [
       {
-        path: 'admin',
-        canActivate: [roleGuard],
-        data: { roles: ['Admin'] },
-        children: [
-          {
-            path: '',
-            redirectTo: 'dashboard',
-            pathMatch: 'full',
-          },
-          {
-            path: 'dashboard',
-            loadComponent: () =>
-              import(
-                './Features/pages/admin/admin-dashboard/admin-dashboard.component'
-              ).then((m) => m.AdminDashboardComponent),
-          },
-          {
-            path: 'category',
-            loadComponent: () =>
-              import('./Features/pages/category/category.component').then(
-                (m) => m.CategoryComponent
-              ),
-          },
-          {
-            path: 'orders',
-            loadComponent: () =>
-              import('./Features/pages/orders/orders.component').then(
-                (m) => m.OrdersComponent
-              ),
-          },
-          {
-            path: 'manage-products',
-            loadComponent: () =>
-              import('./Features/pages/manage-products/manage-products.component').then(
-                (m) => m.ManageProductsComponent
-              ),
-          },
-          {
-            path: 'customer-review',
-            loadComponent: () =>
-              import('./Features/pages/review/review.component').then(
-                (m) => m.ReviewComponent
-              ),
-          },
-        ],
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
       },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import(
+            './Features/pages/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
+      },
+      {
+        path: 'category',
+        loadComponent: () =>
+          import('./Features/pages/category/category.component').then(
+            (m) => m.CategoryComponent
+          ),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./Features/pages/admin-orders/admin-orders.component').then(
+            (m) => m.AdminOrdersComponent
+          ),
+      },
+      {
+        path: 'manage-products',
+        loadComponent: () =>
+          import(
+            './Features/pages/manage-products/manage-products.component'
+          ).then((m) => m.ManageProductsComponent),
+      },
+      {
+        path: 'manage-brands',
+        loadComponent: () =>
+          import('./Features/pages/manage-brands/manage-brands.component').then(
+            (m) => m.ManageBrandsComponent
+          ),
+      },
+      {
+        path: 'customer-review',
+        loadComponent: () =>
+          import('./Features/pages/review/review.component').then(
+            (m) => m.ReviewComponent
+          ),
+      },
+      {
+        path: 'user-role',
+        loadComponent: () =>
+          import('./Features/pages/user-role/user-role.component').then(
+            (m) => m.UserRoleComponent
+          ),
+      },
+    ],
+  },
 
   // Seller-area
   {

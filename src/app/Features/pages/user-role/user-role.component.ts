@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserRoleService } from '../../../core/service/user-role.service';
 import { ChangeUserRoleRequest } from '../../../core/interfaces/user-role';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { UserRoleService } from '../../../core/services/user-role.service';
 
 @Component({
   selector: 'app-user-role',
@@ -95,12 +95,7 @@ export class UserRoleComponent implements OnDestroy {
               timeOut: 3000,
               positionClass: 'toast-top-right'
             });
-          } else {
-            this.toastr.success(`Found ${this.currentRoles.length} role(s)`, 'Success', {
-              timeOut: 2000,
-              positionClass: 'toast-top-right'
-            });
-          }
+          } 
         },
         error: (err) => {
           this.toastr.error(err.error?.message || 'Failed to load user roles', 'Error', {
@@ -128,12 +123,7 @@ export class UserRoleComponent implements OnDestroy {
                 timeOut: 3000,
                 positionClass: 'toast-top-right'
               });
-            } else {
-              this.toastr.success(`Loaded ${this.availableRoles.length} available role(s)`, 'Success', {
-                timeOut: 2000,
-                positionClass: 'toast-top-right'
-              });
-            }
+            } 
           },
           error: (err) => {
             this.toastr.error(err.error?.message || 'Failed to load available roles', 'Error', {

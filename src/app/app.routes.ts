@@ -88,6 +88,13 @@ export const routes: Routes = [
             (m) => m.ReviewComponent
           ),
       },
+      {
+        path: 'user-role',
+        loadComponent: () =>
+          import('./Features/pages/user-role/user-role.component').then(
+            (m) => m.UserRoleComponent
+          ),
+      },
     ],
   },
 
@@ -116,11 +123,32 @@ export const routes: Routes = [
             (m) => m.SellerOrdersComponent
           ),
       },
+     {
+        path: 'manage-products',
+        loadComponent: () =>
+          import(
+            './Features/pages/manage-products/manage-products.component'
+          ).then((m) => m.ManageProductsComponent),
+      },
+      {
+        path: 'manage-brands',
+        loadComponent: () =>
+          import('./Features/pages/manage-brands/manage-brands.component').then(
+            (m) => m.ManageBrandsComponent
+          ),
+      },
       {
         path: 'customer-review',
         loadComponent: () =>
           import('./Features/pages/review/review.component').then(
             (m) => m.ReviewComponent
+          ),
+      },
+      {
+        path: '**',
+        loadComponent: () =>
+          import('./shared/error-page/error-page.component').then(
+            (m) => m.ErrorPageComponent
           ),
       },
     ],

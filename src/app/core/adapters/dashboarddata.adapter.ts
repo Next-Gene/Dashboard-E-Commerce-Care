@@ -17,6 +17,11 @@ export class DashboardDataAdapter {
       topSellingProducts: res.topSellingProducts,
       dailyRevenue: res.dailyRevenue,
       monthlyRevenue: res.monthlyRevenue,
+      averageOrder: res.averageOrder,
+      avgProcessingTime: res.avgProcessingTime,
+      avgItemsPerOrder: res.avgItemsPerOrder,
+      pendingOrdersPercent: res.pendingOrdersPercent,
+      rejectRate: res.rejectRate,
     };
   }
 }

@@ -1,18 +1,15 @@
-<ng-container *ngIf="initialized">
-  <div class="app-container">
+<ng-container *ngIf="initialized; else initialLoading">
+  <div class="app-container relative">
+    <app-loading *ngIf="isLoading"></app-loading>
+
     <!-- Non-auth pages -->
     <ng-container *ngIf="!isAuthPage; else authLayout">
       <div class="main-layout" [class.mobile-view]="isMobileView">
-        <!-- Sidebar on desktop -->
         <app-sidebar *ngIf="!isMobileView"></app-sidebar>
-
-        <!-- Main content area -->
         <main class="main-content">
           <router-outlet></router-outlet>
         </main>
       </div>
-
-      <!-- Mobile nav -->
       <nav class="mobile-nav" *ngIf="isMobileView">
         <app-mobile-nav></app-mobile-nav>
       </nav>
@@ -26,3 +23,9 @@
     </ng-template>
   </div>
 </ng-container>
+
+<ng-template #initialLoading>
+  <div class="full-page-loading">
+    <app-loading></app-loading>
+  </div>
+</ng-template>

@@ -1,5 +1,12 @@
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Component, HostListener, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  PLATFORM_ID,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Router } from '@angular/router';
@@ -11,7 +18,7 @@ import { Subject } from 'rxjs';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterLink ,RouterLinkActive]
+  imports: [CommonModule, RouterLink, RouterLinkActive],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -22,6 +29,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   userRole: string = '';
   isAdmin: boolean = false;
   isSeller: boolean = false;
+  isSettingsDropdownOpen: boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -38,7 +46,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   onResize() {
     this.checkScreenSize();
   }
-
+  toggleSettingsDropdown() {
+    this.isSettingsDropdownOpen = !this.isSettingsDropdownOpen;
+  }
   private checkScreenSize() {
     if (isPlatformBrowser(this.platformId)) {
       this.isMobileView = window.innerWidth <= 768;
@@ -71,7 +81,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   private checkUserRole(): void {
     this.userName = this.getEmailFromToken();
     if (this.userName) {
-      this.authService.GetUserRole(this.userName)
+      this.authService
+        .GetUserRole(this.userName)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response) => {
@@ -82,7 +93,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
           error: (error) => {
             console.error('Error fetching user role:', error);
             this.router.navigate(['/login']);
-          }
+          },
         });
     }
   }
@@ -91,19 +102,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  logout(): void {
-    this.authService.Logout()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          if (isPlatformBrowser(this.platformId)) {
-            localStorage.removeItem('token');
-          }
-          this.router.navigate(['/login']);
-        },
-        error: (error) => {
-          console.error('Logout error:', error);
-        }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/home']).then(() => {
+        window.location.reload();
       });
   }
 
@@ -111,4 +113,5 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+  
 }

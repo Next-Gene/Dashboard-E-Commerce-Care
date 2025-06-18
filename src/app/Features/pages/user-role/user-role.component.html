@@ -2,22 +2,22 @@
 <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-4xl mx-auto">
     <!-- Card with Glass Effect -->
-    <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl p-8 space-y-8 border border-blue-100">
+    <div class="bg-white/90 dark:bg-[#313131] duration-300 transition-colors backdrop-blur-lg rounded-2xl shadow-xl p-8 space-y-8 border border-blue-100">
       <!-- Header with Blue Gradient Text -->
       <div class="text-center">
-        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+        <h2 class="text-3xl font-bold dark:text-white duration-300 transition-colors bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
           User Role Management
         </h2>
-        <p class="mt-2 text-blue-600">Manage and update user permissions efficiently</p>
+        <p class="mt-2 dark:text-white duration-300 transition-colors  text-blue-600">Manage and update user permissions efficiently</p>
       </div>
 
       <form [formGroup]="roleForm" (ngSubmit)="changeUserRole()" class="space-y-6">
         <!-- Email Field with Icon -->
         <div class="relative">
-          <label for="email" class="block text-sm font-medium text-blue-700 mb-2">User Email</label>
+          <label for="email" class="block text-sm font-medium dark:text-white duration-300 transition-colors  text-blue-700 mb-2">User Email</label>
           <div class="flex gap-2">
             <div class="relative flex-1">
-              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-blue-400">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center  text-blue-400">
                 <i class="fas fa-envelope"></i>
               </span>
               <input
@@ -47,12 +47,12 @@
         </div>
 
         <!-- Current Roles Display with Enhanced Design -->
-        <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
-          <label class="block text-sm font-medium text-blue-700 mb-2">Current Roles</label>
+        <div class="bg-blue-50 rounded-xl dark:bg-[#353535] duration-300 transition-colors  p-4 border border-blue-100">
+          <label class="block text-sm font-medium text-blue-700  dark:text-white duration-300 transition-colors  mb-2">Current Roles</label>
           <div class="mt-2 flex flex-wrap gap-2">
             @if (currentRoles.length > 0) {
               @for (role of currentRoles; track role) {
-                <span class="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 px-4 py-2 rounded-full text-sm font-medium shadow-sm flex items-center gap-2">
+                <span class="bg-gradient-to-r from-blue-100  to-blue-200 text-blue-700 px-4 py-2 rounded-full text-sm font-medium shadow-sm flex items-center gap-2">
                   <i class="fas fa-user-shield"></i>
                   {{ role }}
                 </span>
@@ -68,7 +68,7 @@
 
         <!-- Role Selector with Enhanced Design -->
         <div class="relative">
-          <label for="role" class="block text-sm font-medium text-blue-700 mb-2">Assign New Role</label>
+          <label for="role" class="block text-sm font-medium dark:text-white duration-300 transition-colors  text-blue-700 mb-2">Assign New Role</label>
           <div class="relative">
             <select
               id="role"

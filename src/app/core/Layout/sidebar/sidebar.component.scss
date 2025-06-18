@@ -6,7 +6,18 @@
   display: flex;
   flex-direction: column;
 }
+:host-context(.dark) aside::-webkit-scrollbar {
+  width: 8px;
+}
 
+:host-context(.dark) aside {
+  scrollbar-color: #444 #292929; /* thumb track */
+  scrollbar-width: thin;
+}
+
+:host-context(.dark) aside::-webkit-scrollbar-track {
+  background-color: #292929; // نفس خلفية الدارك
+}
 .profile-card {
   display: flex;
   align-items: center;
@@ -73,6 +84,7 @@
   text-transform: uppercase;
 }
 
+
 .menu-list {
   list-style: none;
   padding: 0;
@@ -85,7 +97,11 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-
+:host-context(.dark) {
+  .section-title {
+    color: white;
+  }
+}
   li {
     margin: 0.25rem 0;
   }
@@ -124,12 +140,20 @@
 
   &.active {
     color: #160e4b !important;
+       :host-context(.dark) & {
+color:cyan !important;
+    }
     font-weight: 700;
     .icon-bg {
       background: #160e4b;
+       :host-context(.dark) & {
+      color: cyan !important;
+
+    }
     }
     .icon-bg i {
       color: #ffffff;
+      
     }
   }
 
@@ -170,4 +194,133 @@
 }
 .custom-icon i:active{
   color: #A6ABC8 !important; // لون الأيقونة الفاتح عند الضغط
+  }
+  .themeToggle {
+  color: #bbb;
+  width: 3em;
+}
+
+.st-sunMoonThemeToggleBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  .themeToggleInput {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .customCheckbox {
+    margin-left: 25%;
+    width: 2em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.4s ease, transform 0.4s ease;
+
+    svg {
+      width: 70%;
+      height: 70%;
+      transition: transform 0.4s ease, fill 0.4s ease;
+      transform: rotate(40deg);
+
+      .sunMoon {
+        transform-origin: center center;
+        transition: inherit;
+        transform: scale(1);
+      }
+
+      .sunRay {
+        transform-origin: center center;
+        transform: scale(0);
+      }
+
+      mask > circle {
+        transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
+        transform: translate(0px, 0px);
+      }
+    }
+  }
+
+  .themeToggleInput:checked + .customCheckbox {
+    background-color: white;
+
+    svg {
+      transform: rotate(90deg);
+
+      mask > circle {
+        transform: translate(16px, -3px);
+      }
+
+      .sunMoon {
+        transform: scale(0.55);
+      }
+
+      .sunRay {
+        animation: showRay1832 0.4s ease 0s 1 forwards;
+      }
+    }
+  }
+}
+
+@keyframes showRay1832 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.active {
+  @apply text-blue-700 dark:text-blue-500;
+}
+
+// Dropdown Menu
+.relative {
+  .absolute {
+    animation: slideDown 0.2s ease-out;
+    transform-origin: top;
+
+    &.ng-leave {
+      animation: slideUp 0.2s ease-in;
+     } 
+    }
   }

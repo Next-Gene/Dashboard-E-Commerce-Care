@@ -2,7 +2,7 @@
 <div class="bg-gradient-to-r from-[#0070CD] to-[#AEE2FF] p-4 rounded-lg m-4">
   <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
     <div>
-      <h1 class="text-xl font-bold text-[var(--secondary-color)]">Manage Products</h1>
+      <h1 class="text-xl font-bold text-white">Manage Products</h1>
       <p class="text-white/80 text-sm">View and manage your product inventory</p>
     </div>
     
@@ -13,7 +13,7 @@
           type="text"
           (input)="onSearch($event)"
           placeholder="Search products..."
-          class="w-full px-3 py-1.5 rounded-md bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-1 focus:ring-white/30 text-sm"
+          class="w-full px-3 py-1.5 rounded-md bg-white/10 border dark:bg-[#303030] duration-300 transition-colors border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-1 focus:ring-white/30 text-sm"
         />
         <svg
           class="absolute right-2.5 top-2 w-4 h-4 text-white/60"
@@ -45,11 +45,11 @@
 </div>
 
 <!-- Products Table -->
-<div class="bg-white rounded-lg shadow-sm p-4 m-4">
+<div class="bg-white rounded-lg dark:bg-[#303030] shadow-sm p-4 m-4">
   <div class="overflow-x-auto">
     <table class="min-w-full table-auto border-separate border-spacing-y-2">
       <thead>
-        <tr class="text-left text-xs font-semibold text-gray-600">
+        <tr class="text-left  dark:text-white duration-300 transition-colors text-xs font-semibold text-gray-600">
           <th class="pb-2">Products</th>
           <th class="pl-4 pb-2">Price</th>
           <th class="pl-4 pb-2">State</th>
@@ -60,7 +60,7 @@
       <tbody>
         <tr
           *ngFor="let product of paginatedProducts"
-          class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
+          class="bg-white dark:bg-[#303030] rounded-lg shadow-sm hover:shadow-md dark:hover:bg-[#323232] transition-all duration-200"
         >
           <!-- Products: Image + Name -->
           <td class="flex items-center gap-2 p-2">
@@ -72,8 +72,8 @@
               />
             </div>
             <div class="flex flex-col">
-              <span class="text-sm font-medium text-gray-800">{{ product.name }}</span>
-              <span class="text-xs text-gray-500">ID: {{ product.id }}</span>
+              <span class="text-sm  dark:text-white duration-300 transition-colors font-medium text-gray-800">{{ product.name }}</span>
+              <span class="text-xs  dark:text-gray-300 duration-300 transition-colors text-gray-500">ID: {{ product.id }}</span>
             </div>
           </td>
 
@@ -86,7 +86,7 @@
 
           <!-- State -->
           <td class="text-sm p-2">
-            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-600">
+            <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 dark:bg-[#303030] duration-300 transition-colors text-green-600">
               Available
             </span>
           </td>
@@ -94,8 +94,8 @@
           <!-- Amount -->
           <td class="text-sm text-gray-700 p-2">
             <div class="flex items-center gap-1">
-              <span class="font-medium">10</span>
-              <span class="text-gray-400 text-xs">units</span>
+              <span class="font-medium  dark:text-white duration-300 transition-colors">10</span>
+              <span class="text-gray-400  dark:text-gray-300 duration-300 transition-colors text-xs">units</span>
             </div>
           </td>
 
@@ -158,7 +158,7 @@
   class="fixed inset-0 z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm"
 >
   <div class="relative p-4 w-full max-w-lg">
-    <div class="relative bg-white rounded-lg shadow-xl">
+    <div class="relative dark:bg-[#313131] duration-300 transition-colors bg-white rounded-lg shadow-xl">
 
       <!-- Close Button -->
       <button 
@@ -172,15 +172,15 @@
 
       <!-- Modal Content -->
       <div class="p-6">
-        <h3 class="mb-4 text-lg font-semibold text-gray-900">
+        <h3 class="mb-4  dark:text-white duration-300 transition-colors text-lg font-semibold text-gray-900">
           {{ isAddMode ? 'Add New Product' : 'Edit Product' }}
         </h3>
 
-        <form (ngSubmit)="submitProduct()" class="space-y-4">
+        <form (ngSubmit)="submitProduct()" class=" space-y-4">
           
           <!-- Name -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label class="block text-sm font-medium  dark:text-white duration-300 transition-colors text-gray-700 mb-1">Name</label>
             <input
               type="text"
               [(ngModel)]="selectedProduct.name"
@@ -192,7 +192,7 @@
 
           <!-- Price -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1  dark:text-white duration-300 transition-colors">Price</label>
             <input
               type="number"
               [(ngModel)]="selectedProduct.price"
@@ -204,7 +204,7 @@
 
           <!-- Description -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1  dark:text-white duration-300 transition-colors">Description</label>
             <textarea
               [(ngModel)]="selectedProduct.description"
               name="description"
@@ -216,9 +216,9 @@
 
           <!-- Photo Upload -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Product Photo</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1  dark:text-white duration-300 transition-colors ">Product Photo</label>
             <div class="flex items-center gap-4">
-              <div *ngIf="selectedProduct?.photoUrl || selectedFile" class="relative w-20 h-20 rounded-md overflow-hidden border border-gray-200">
+              <div *ngIf="selectedProduct?.photoUrl || selectedFile" class="relative w-20 h-20 rounded-md  overflow-hidden border border-gray-200">
                 <img
                   [src]="selectedFile ? previewUrl : selectedProduct?.photoUrl"
                   alt="Product preview"
@@ -236,7 +236,7 @@
                 <button
                   type="button"
                   (click)="fileInput.click()"
-                  class="w-full px-3 py-2 rounded-md border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition-colors duration-200"
+                  class="w-full px-3 py-2 rounded-md border  dark:text-white dark:hover:bg-[#383838] border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition-colors duration-200"
                 >
                   {{ selectedFile ? 'Change Photo' : 'Upload Photo' }}
                 </button>
@@ -246,14 +246,14 @@
 
           <!-- Category -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1  dark:text-white duration-300 transition-colors">Category</label>
             <select
               [(ngModel)]="selectedProduct.categoryId"
               name="categoryId"
-              class="w-full px-3 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-1 focus:ring-[#0070CD] focus:border-[#0070CD] text-sm"
+              class="w-full px-3 py-2  rounded-md border border-gray-200 focus:outline-none focus:ring-1 focus:ring-[#0070CD] focus:border-[#0070CD] text-sm"
               required
             >
-              <option *ngFor="let category of categories" [value]="category.id">
+              <option class=" dark:text-white duration-300 transition-colors" *ngFor="let category of categories" [value]="category.id">
                 {{ category.name }}
               </option>
             </select>
@@ -261,7 +261,7 @@
 
           <!-- Brand -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Brand</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1  dark:text-white duration-300 transition-colors">Brand</label>
             <select
               [(ngModel)]="selectedProduct.productBrandId"
               name="productBrandId"
@@ -302,14 +302,15 @@
 </div>
 
 
+
 <!-- Delete Modal -->
 <div 
   id="popup-modal" 
   tabindex="-1" 
-  class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm"
+  class="hidden fixed inset-0 z-50 flex justify-center items-center  bg-black/50 backdrop-blur-sm"
 >
   <div class="relative p-4 w-full max-w-sm">
-    <div class="relative bg-white rounded-lg shadow-lg">
+    <div class="relative  dark:bg-[#313131] duration-300 transition-colors bg-white rounded-lg shadow-lg">
       <!-- Close Button -->
       <button 
         (click)="closeModal()" 
@@ -328,11 +329,11 @@
           </svg>
         </div>
         
-        <h3 class="mb-2 text-base font-semibold text-gray-900">
+        <h3 class="mb-2 text-base font-semibold  dark:text-white duration-300 transition-colors text-gray-900">
           Delete Product
         </h3>
         
-        <p class="mb-4 text-sm text-gray-500">
+        <p class="mb-4 text-sm text-gray-500  dark:text-gray-300 duration-300 transition-colors">
           Are you sure you want to delete this product? This action cannot be undone.
         </p>
 

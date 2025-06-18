@@ -6,7 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthApiService } from '../../../../../../projects/auth-api/src/public-api';
 import { validsignup } from '../../../../shared/utilites/validsignup';
-import { UserDataServiceService } from '../../../service/user-data-service.service';
+import { UserDataServiceService } from '../../../services/user-data-service.service';
 
 @Component({
   selector: 'app-new-password',

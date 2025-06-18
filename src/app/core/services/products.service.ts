@@ -2,9 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductsAPI } from '../base/ProductsAPI';
 import { map, Observable } from 'rxjs';
+<<<<<<< HEAD:src/app/core/service/products.service.ts
 import { ProductsAdapter } from '../adapter/products.adapter';
 import { addProduct, APIProductsResponse, Product, updateProduct } from '../interfaces/product';
 import { ApiEndpoint } from '../enums/ApiEndpoint ';
+=======
+import { ProductsAdapter } from '../adapters/products.adapter';
+import { addProduct, APIProductsResponse, Product, updateProduct } from '../interfaces/product';
+import { ApiEndpoint } from '../Enums/ApiEndpoint ';
+>>>>>>> da0567dd6287350dc7dcb95e5260a26adfbf920c:src/app/core/services/products.service.ts
 
 @Injectable({
   providedIn: 'root',

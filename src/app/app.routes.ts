@@ -14,28 +14,26 @@ export const routes: Routes = [
   {
     path: 'resetPassword',
     loadComponent: () =>
-      import('./core/Authcomponents/reset/reset-password/reset-password.component').then(
-        (m) => m.ResetPasswordComponent
-      ),
+      import(
+        './core/Authcomponents/reset/reset-password/reset-password.component'
+      ).then((m) => m.ResetPasswordComponent),
   },
   {
     path: 'verifyCode',
     loadComponent: () =>
-      import('./core/Authcomponents/reset/verfiycode/verfiycode.component').then(
-        (m) => m.VerfiycodeComponent
-      ),
+      import(
+        './core/Authcomponents/reset/verfiycode/verfiycode.component'
+      ).then((m) => m.VerfiycodeComponent),
   },
   {
     path: 'newPassword',
     loadComponent: () =>
-      import('./core/Authcomponents/reset/new-password/new-password.component').then(
-        (m) => m.NewPasswordComponent
-      ),
+      import(
+        './core/Authcomponents/reset/new-password/new-password.component'
+      ).then((m) => m.NewPasswordComponent),
   },
 
   // Authenticated “shell” with its own layout component
-
-
 
       // Admin-area
       {
@@ -83,51 +81,43 @@ export const routes: Routes = [
                 (m) => m.ReviewComponent
               ),
           },
-          {
-             path: 'user-role',
-              loadComponent: () =>
-              import('./Features/pages/user-role/user-role.component').then(
-                (m) => m.UserRoleComponent
-              ),
-          },
         ],
       },
 
-      // Seller-area
+  // Seller-area
+  {
+    path: 'seller',
+    canActivate: [roleGuard],
+    data: { roles: ['Seller'] },
+    children: [
       {
-        path: 'seller',
-        canActivate: [roleGuard],
-        data: { roles: ['Seller'] },
-        children: [
-          {
-            path: '',
-            redirectTo: 'dashboard',
-            pathMatch: 'full',
-          },
-          {
-            path: 'dashboard',
-            loadComponent: () =>
-              import(
-                './Features/pages/seller/seller-dashboard/seller-dashboard.component'
-              ).then((m) => m.SellerDashboardComponent),
-          },
-          {
-            path: 'orders',
-            loadComponent: () =>
-              import('./Features/pages/orders/orders.component').then(
-                (m) => m.OrdersComponent
-              ),
-          },
-          {
-            path: 'customer-review',
-            loadComponent: () =>
-              import('./Features/pages/review/review.component').then(
-                (m) => m.ReviewComponent
-              ),
-          },
-        ],
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
       },
-
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import(
+            './Features/pages/seller-dashboard/seller-dashboard.component'
+          ).then((m) => m.SellerDashboardComponent),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./Features/pages/seller-orders/seller-orders.component').then(
+            (m) => m.SellerOrdersComponent
+          ),
+      },
+      {
+        path: 'customer-review',
+        loadComponent: () =>
+          import('./Features/pages/review/review.component').then(
+            (m) => m.ReviewComponent
+          ),
+      },
+    ],
+  },
 
   // Unauthorized
   {

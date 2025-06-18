@@ -1,0 +1,40 @@
+// Container spacing
+:host {
+    display: block;
+    height: 100%;
+  }
+  
+  // Table styles
+  table {
+    th, td {
+      vertical-align: middle;
+    }
+    thead {
+      th {
+        border-bottom: 2px solid #E5E7EB;
+      }
+    }
+    tbody {
+      tr:hover {
+        background-color: #F9FAFB;
+      }
+    }
+  }
+  
+  // Sidebar headings
+  h3 {
+    letter-spacing: 0.05em;
+  }
+  
+  // Chart canvas ensures responsive height
+  #receiptDonutChart {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  // Adjust legend list
+  aside ul {
+    li {
+      align-items: center;
+    }
+  }

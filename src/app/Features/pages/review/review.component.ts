@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Review } from '../../../core/interfaces/review';
-import { ReviewService } from '../../../core/service/review.service';
 import { CommonModule } from '@angular/common';
+import { ReviewService } from '../../../core/services/review.service';
 
 @Component({
   selector: 'app-review',

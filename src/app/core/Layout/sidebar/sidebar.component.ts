@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Component, HostListener, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -5,8 +6,6 @@ import { Router } from '@angular/router';
 import { AuthApiService } from '../../../../../projects/auth-api/src/public-api';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',

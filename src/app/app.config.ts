@@ -7,6 +7,7 @@ import { provideToastr } from 'ngx-toastr';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { headerInterceptor } from './core/interceptors/header.interceptor';
+import { provideServerRendering } from '@angular/platform-server';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideToastr(), 
         provideAnimations(),
-
+provideServerRendering(),
     provideClientHydration(withEventReplay()),
     provideHttpClient(
       withFetch(),

@@ -1,11 +1,15 @@
-import { CategoryService } from './../../../core/service/category.service';
+
 import { Component, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ProductsService } from '../../../core/service/products.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { addProduct, Product } from '../../../core/interfaces/product';
+<<<<<<< HEAD
+=======
+import { ProductsService } from '../../../core/services/products.service';
+import { CategoryService } from '../../../core/services/category.service';
+>>>>>>> da0567dd6287350dc7dcb95e5260a26adfbf920c
 
 @Component({
   selector: 'app-manage-products',

@@ -88,6 +88,13 @@ export const routes: Routes = [
             (m) => m.ReviewComponent
           ),
       },
+      {
+        path: 'user-role',
+        loadComponent: () =>
+          import('./Features/pages/user-role/user-role.component').then(
+            (m) => m.UserRoleComponent
+          ),
+      },
     ],
   },
 

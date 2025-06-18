@@ -32,6 +32,6 @@ export class ApiEndpoint {
   static USE_ROLES = `${environment.baseUrl}/api/v1/Auth/user-roles`;
   static AVAILABLE_ROLES = `${environment.baseUrl}/api/v1/Auth/available-roles`;
   static CHANGE_USER_ROLES = `${environment.baseUrl}/api/v1/Auth/change-user-role`;
-
+  
 
 }

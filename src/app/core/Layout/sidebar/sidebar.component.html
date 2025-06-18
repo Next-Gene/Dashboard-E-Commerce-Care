@@ -110,6 +110,48 @@
               <span>Customer Review</span>
             </a>
           </li>
+          <li class="section-title">OTHERS</li>
+        <li class="relative">
+          <button
+            (click)="toggleSettingsDropdown()"
+            class="menu-item w-full flex items-center justify-between"
+          >
+            <span class="flex items-center gap-3">
+              <span class="icon-bg">
+                <i class="fas fa-cog"></i>
+              </span>
+              <span>Settings</span>
+            </span>
+            <i class="fas fa-chevron-down text-sm"></i>
+          </button>
+
+          <!-- Dropdown -->
+          <ul
+            *ngIf="isSettingsDropdownOpen"
+            class="absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+          >
+            <li>
+              <button
+                class="w-full text-left px-4 py-2  hover:bg-gray-100 text-[#160E4B] font-medium"
+                routerLink="/admin/user-role"
+              >
+                <span class="icon-bg">
+                  <i class="fas fa-user mr-2"></i>
+                </span>
+                <span>Accounts</span>
+              </button>
+            </li>
+            <li>
+              <button
+                class="w-full text-left px-4 py-2  hover:bg-red-100 text-red-600 font-semibold"
+                (click)="logout()"
+              >
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </li>
         </ng-container>
 
         <!-- Seller Menu -->
@@ -181,47 +223,40 @@
               <span>Customer Review</span>
             </a>
           </li>
+          <li class="section-title">OTHERS</li>
+          <li class="relative">
+            <button
+              (click)="toggleSettingsDropdown()"
+              class="menu-item w-full flex items-center justify-between"
+            >
+              <span class="flex items-center gap-3">
+                <span class="icon-bg">
+                  <i class="fas fa-cog"></i>
+                </span>
+                <span>Settings</span>
+              </span>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </button>
+  
+            <!-- Dropdown -->
+            <ul
+              *ngIf="isSettingsDropdownOpen"
+              class="absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+            >
+              <li>
+                <button
+                  class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 font-semibold"
+                  (click)="logout()"
+                >
+                  <i class="fas fa-sign-out-alt mr-2"></i>
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </li>
         </ng-container>
 
         <!-- Common Menu Items -->
-        <li class="section-title">OTHERS</li>
-        <li class="relative">
-          <button
-            (click)="toggleSettingsDropdown()"
-            class="menu-item w-full flex items-center justify-between"
-          >
-            <span class="flex items-center gap-3">
-              <span class="icon-bg">
-                <i class="fas fa-cog"></i>
-              </span>
-              <span>Settings</span>
-            </span>
-            <i class="fas fa-chevron-down text-sm"></i>
-          </button>
-
-          <!-- Dropdown -->
-          <ul
-            *ngIf="isSettingsDropdownOpen"
-            class="absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50"
-          >
-            <li>
-              <button
-                class="w-full text-left px-4 py-2 hover:bg-gray-100 text-[#160E4B] font-medium"
-              >
-                Profile
-              </button>
-            </li>
-            <li>
-              <button
-                class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 font-semibold"
-                (click)="logout()"
-              >
-              <i class="fas fa-sign-out-alt mr-2"></i>
-              Logout
-              </button>
-            </li>
-          </ul>
-        </li>
       </ul>
     </div>
   </aside>

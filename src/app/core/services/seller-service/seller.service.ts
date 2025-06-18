@@ -8,7 +8,6 @@ import {
   SellerDataRes,
   TopSellingProduct,
 } from '../../interfaces/SellerDataRes';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +26,6 @@ export class SellerService {
       ApiEndpoint.SELLER__top_selling_products
     );
   }
-
   getAvailableRoles(): Observable<string[]> {
     return this._httpClient.get<string[]>(ApiEndpoint.ADMIN_AVAILABLE_ROLES);
   }

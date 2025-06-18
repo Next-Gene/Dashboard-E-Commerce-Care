@@ -113,4 +113,5 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+  
 }

@@ -1,0 +1,110 @@
+// Custom animations
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+// Component styles
+:host {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Glass effect
+.bg-white\/80 {
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Form elements
+input, select {
+  transition: all 0.2s ease;
+  
+  &:focus {
+    transform: translateY(-1px);
+  }
+}
+
+// Role badges
+span.bg-gradient-to-r {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Loading states
+.is-loading {
+  position: relative;
+  pointer-events: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: inherit;
+  }
+}
+
+// Button animations
+button {
+  transition: all 0.3s ease;
+  
+  &:not(:disabled):hover {
+    transform: translateY(-2px);
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// Error messages
+.text-red-500 {
+  animation: fadeIn 0.2s ease-out;
+}
+
+// Loading spinner
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .max-w-4xl {
+    padding: 1rem;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  .flex {
+    flex-direction: column;
+  }
+}

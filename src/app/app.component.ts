@@ -10,12 +10,22 @@ import {
   isPlatformBrowser,
   ViewportScroller
 } from '@angular/common';
-import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError,
+  RouterOutlet,
+  Event as RouterEvent
+} from '@angular/router';
+
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MobileNavComponent } from './core/Layout/mobile-nav/mobile-nav.component';
 import { SidebarComponent } from './core/Layout/sidebar/sidebar.component';
 import { UserDataServiceService } from './core/services/user-data-service.service';
 import { filter } from 'rxjs/operators';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +34,8 @@ import { filter } from 'rxjs/operators';
     CommonModule,
     RouterOutlet,
     MobileNavComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoadingComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -32,6 +43,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   isAuthPage = false;
   isMobileView = false;
+  isLoading: boolean = false;
   initialized = false;
   private isBrowser: boolean;
 
@@ -40,25 +52,16 @@ export class AppComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private viewportScroller: ViewportScroller,
-    private userDataService: UserDataServiceService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit() {
-    // 1) Watch for initial navigation end to set up layout
-    this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((evt: NavigationEnd) => {
-        this.checkAuthPage(evt.urlAfterRedirects);
-        if (this.isBrowser) {
-          // ensure top-of-page on each navigation
-          this.viewportScroller.scrollToPosition([0, 0]);
-        }
-        this.initialized = true;
-      });
+    // Handle router events for loading state
+    this.router.events.subscribe((event: RouterEvent) => {
+      this.handleRouterEvent(event);
+    });
 
-    // 2) Observe handset breakpoint (Angular CDK)
     if (this.isBrowser) {
       this.breakpointObserver
         .observe([Breakpoints.Handset])
@@ -68,9 +71,28 @@ export class AppComponent implements OnInit {
     }
   }
 
+  private handleRouterEvent(event: RouterEvent): void {
+    if (event instanceof NavigationStart) {
+      this.isLoading = true;
+    }
+    
+    if (event instanceof NavigationEnd) {
+      this.checkAuthPage(event.urlAfterRedirects);
+      if (this.isBrowser) {
+        this.viewportScroller.scrollToPosition([0, 0]);
+      }
+      this.initialized = true;
+      this.isLoading = false;
+    }
+    
+    if (event instanceof NavigationCancel || event instanceof NavigationError) {
+      this.isLoading = false;
+    }
+    
+  }
+
   @HostListener('window:resize')
   onResize() {
-    // fallback for non-CDK environments
     if (this.isBrowser) {
       this.isMobileView = window.innerWidth <= 768;
     }

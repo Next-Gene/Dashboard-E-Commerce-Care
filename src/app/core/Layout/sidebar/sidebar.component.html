@@ -1,10 +1,17 @@
 <div class="flex h-screen bg-gray-100">
   <!-- Sidebar -->
-  <aside class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-    aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-white border-r border-gray-200">
+  <aside
+    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    aria-label="Sidebar"
+  >
+    <div
+      class="h-full px-3 py-4 overflow-y-auto bg-white border-r border-gray-200"
+    >
       <!-- Logo -->
-      <div class="flex items-center justify-center mb-4 cursor-pointer" routerLink="/">
+      <div
+        class="flex items-center justify-center mb-4 cursor-pointer"
+        routerLink="/"
+      >
         <img src="/prime care.png" alt="Logo" class="h-16" />
       </div>
 
@@ -22,132 +29,232 @@
 
       <!-- Navigation -->
       <ul class="menu-list">
-        <!-- Admin Menu -->
         <ng-container *ngIf="isAdmin">
           <li class="section-title">MENU</li>
-
           <li>
-            <a class="menu-item active" routerLinkActive="active" routerLink="/admin/dashboard">
-              <span class="icon-bg">
-                <img src="/Chart.png" alt="dashboard" class="w-5 h-5" />
+            <a
+              class="menu-item active"
+              routerLinkActive="active"
+              routerLink="/admin/dashboard"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-chart-line"></i>
               </span>
               <span>Dashboard</span>
             </a>
           </li>
+
           <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/admin/orders">
-              <span class="icon-bg">
-                <img src="/Buy.png" alt="orders" class="w-5 h-5" />
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/admin/orders"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <!-- Orders icon -->
               </span>
               <span>Orders</span>
             </a>
           </li>
+
           <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/admin/category">
-              <span class="icon-bg">
-                <img src="/Document.png" alt="menu" class="w-5 h-5" />
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/admin/category"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-th-list"></i>
               </span>
               <span>Manage Menu</span>
             </a>
           </li>
-          <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/admin/manage-products">
-              <span class="icon-bg">
-                <i class="fas fa-box-open "></i>
-              </span>
-              <span>Manage Products</span>
-            </a>
-          </li>
-          <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/admin/manage-brands">
-              <span class="icon-bg">
-                <i class="fas fa-box-open "></i>
-              </span>
-              <span>Manage Brands</span>
-            </a>
-          </li>
-          <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/admin/customer-review">
-              <span class="icon-bg">
-                <img src="/Chat.png" alt="review" class="w-5 h-5" />
-              </span>
-              <span>Customer Review</span>
-            </a>
-          </li>
-        </ng-container>
-
-        <!-- Seller Menu -->
-        <ng-container *ngIf="isSeller">
-          <li class="section-title">MENU</li>
 
           <li>
-            <a class="menu-item active" routerLinkActive="active" routerLink="/seller/dashboard">
-              <span class="icon-bg">
-                <i class="fas fa-chart-bar"></i>
-              </span>
-              <span>Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/seller/orders">
-              <span class="icon-bg">
-                <i class="fas fa-shopping-cart"></i>
-              </span>
-              <span>Orders</span>
-            </a>
-          </li>
-          <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/seller/manage-products">
-              <span class="icon-bg">
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/admin/manage-products"
+            >
+              <span class="icon-bg custom-icon">
                 <i class="fas fa-box-open"></i>
               </span>
               <span>Manage Products</span>
             </a>
           </li>
+
           <li>
-            <a class="menu-item" routerLinkActive="active" routerLink="/seller/customer-review">
-              <span class="icon-bg">
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/admin/manage-brands"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-building"></i>
+              </span>
+              <span>Manage Brands</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/admin/customer-review"
+            >
+              <span class="icon-bg custom-icon">
                 <i class="fas fa-comments"></i>
+                <!-- Customer Review icon -->
               </span>
               <span>Customer Review</span>
             </a>
           </li>
+          <li class="section-title">OTHERS</li>
+        <li class="relative">
+          <button
+            (click)="toggleSettingsDropdown()"
+            class="menu-item w-full flex items-center justify-between"
+          >
+            <span class="flex items-center gap-3">
+              <span class="icon-bg">
+                <i class="fas fa-cog"></i>
+              </span>
+              <span>Settings</span>
+            </span>
+            <i class="fas fa-chevron-down text-sm"></i>
+          </button>
+
+          <!-- Dropdown -->
+          <ul
+            *ngIf="isSettingsDropdownOpen"
+            class="absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+          >
+            <li>
+              <button
+                class="w-full text-left px-4 py-2  hover:bg-gray-100 text-[#160E4B] font-medium"
+                routerLink="/admin/user-role"
+              >
+                <span class="icon-bg">
+                  <i class="fas fa-user mr-2"></i>
+                </span>
+                <span>Accounts</span>
+              </button>
+            </li>
+            <li>
+              <button
+                class="w-full text-left px-4 py-2  hover:bg-red-100 text-red-600 font-semibold"
+                (click)="logout()"
+              >
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </li>
         </ng-container>
 
-        <!-- Common Menu Items -->
-        <li class="section-title">OTHERS</li>
-        <li>
-          <a class="menu-item" href="#">
-            <span class="icon-bg">
-              <i class="fas fa-cog"></i>
-            </span>
-            <span>Settings</span>
-          </a>
-        </li>
-        <li>
-          <a class="menu-item" href="#">
-            <span class="icon-bg">
-              <i class="fas fa-credit-card"></i>
-            </span>
-            <span>Payment</span>
-          </a>
-        </li>
-        <li>
-          <a class="menu-item" routerLinkActive="active" routerLink="/admin/user-role">
-            <span class="icon-bg">
-              <i class="fas fa-user"></i>
-            </span>
-            <span>Accounts</span>
-          </a>
-        </li>
-        <li>
-          <a class="menu-item" href="#">
-            <span class="icon-bg">
-              <i class="fas fa-info-circle"></i>
-            </span>
-            <span>Help</span>
-          </a>
-        </li>
+        <!-- Seller Menu -->
+        <ng-container *ngIf="isSeller">
+          <li class="section-title">MENU</li>
+          <li>
+            <a
+              class="menu-item active"
+              routerLinkActive="active"
+              routerLink="/seller/dashboard"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-chart-line"></i>
+                <!-- Dashboard icon -->
+              </span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/seller/orders"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <!-- Orders icon -->
+              </span>
+              <span>Orders</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/seller/manage-products"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-box-open"></i>
+              </span>
+              <span>Manage Products</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/seller/manage-brands"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-building"></i>
+              </span>
+              <span>Manage Brands</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              class="menu-item"
+              routerLinkActive="active"
+              routerLink="/seller/customer-review"
+            >
+              <span class="icon-bg custom-icon">
+                <i class="fas fa-comments"></i>
+                <!-- Customer Review icon -->
+              </span>
+              <span>Customer Review</span>
+            </a>
+          </li>
+          <li class="section-title">OTHERS</li>
+          <li class="relative">
+            <button
+              (click)="toggleSettingsDropdown()"
+              class="menu-item w-full flex items-center justify-between"
+            >
+              <span class="flex items-center gap-3">
+                <span class="icon-bg">
+                  <i class="fas fa-cog"></i>
+                </span>
+                <span>Settings</span>
+              </span>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </button>
+  
+            <!-- Dropdown -->
+            <ul
+              *ngIf="isSettingsDropdownOpen"
+              class="absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+            >
+              <li>
+                <button
+                  class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 font-semibold"
+                  (click)="logout()"
+                >
+                  <i class="fas fa-sign-out-alt mr-2"></i>
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
       </ul>
     </div>
   </aside>

@@ -3,30 +3,35 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiEndpoint } from '../../Enums/ApiEndpoint';
 import {
-  DashboardDataRes,
+  APISellerDataResponse,
+  OrderStatusSummary,
+  SellerDataRes,
   TopSellingProduct,
-} from '../../interfaces/DashboardDataRes';
-
+} from '../../interfaces/SellerDataRes';
 @Injectable({
   providedIn: 'root',
 })
 export class SellerService {
-  constructor(private http: HttpClient) {}
+  constructor(private _httpClient: HttpClient) {}
 
   // Dashboard
-  getDashboardData(): Observable<DashboardDataRes> {
-    return this.http.get<DashboardDataRes>(ApiEndpoint.SELLER_DASHBOARD);
-  }
-
-  getTopSellingProducts(): Observable<TopSellingProduct[]> {
-    return this.http.get<TopSellingProduct[]>(
-      ApiEndpoint.SELLER__top_selling_products
+  getDashboardData(): Observable<SellerDataRes> {
+    return this._httpClient.get<APISellerDataResponse>(
+      ApiEndpoint.SELLER_DASHBOARD
     );
   }
 
-  getDailyRevenue(): Observable<DashboardDataRes['dailyRevenue']> {
-    return this.http.get<DashboardDataRes['dailyRevenue']>(
-      ApiEndpoint.SELLER_DAILY_REVENUE
+  getTopSellingProducts(): Observable<TopSellingProduct[]> {
+    return this._httpClient.get<TopSellingProduct[]>(
+      ApiEndpoint.SELLER__top_selling_products
+    );
+  }
+  getAvailableRoles(): Observable<string[]> {
+    return this._httpClient.get<string[]>(ApiEndpoint.ADMIN_AVAILABLE_ROLES);
+  }
+  getOrderStatusSummary(): Observable<OrderStatusSummary> {
+    return this._httpClient.get<OrderStatusSummary>(
+      ApiEndpoint.SELLER__top_selling_products
     );
   }
 }

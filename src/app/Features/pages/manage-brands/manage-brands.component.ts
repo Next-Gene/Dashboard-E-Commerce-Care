@@ -5,13 +5,14 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { BrandsService } from '../../../core/services/Brands.service';
+import { PaginationComponent } from "../../../shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-manage-brands',
   templateUrl: './manage-brands.component.html',
   styleUrls: ['./manage-brands.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, PaginationComponent]
 })
 export class ManageBrandsComponent implements OnInit, OnDestroy {
   brands: BrandsResponse[] = [];
@@ -51,7 +52,9 @@ export class ManageBrandsComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
+onPageChange(page: number): void {
+  this.currentPage = page;
+}
   loadBrands() {
     this._brandsService.getBrands()
       .pipe(takeUntil(this.destroy$))

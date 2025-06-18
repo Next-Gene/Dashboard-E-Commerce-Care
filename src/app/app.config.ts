@@ -8,6 +8,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { headerInterceptor } from './core/interceptors/header.interceptor';
 import { provideServerRendering } from '@angular/platform-server';
+import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,7 +20,7 @@ provideServerRendering(),
     provideClientHydration(withEventReplay()),
     provideHttpClient(
       withFetch(),
-      withInterceptors([headerInterceptor])
+      withInterceptors([headerInterceptor , loadingInterceptor])
     ), 
     BreakpointObserver
   ]

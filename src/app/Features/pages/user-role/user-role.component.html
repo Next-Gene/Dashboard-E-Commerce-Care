@@ -1,11 +1,11 @@
 <!-- Main Container with Blue Gradient Background -->
-<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen py-10 px-4 sm:px-6 lg:px-8 mx-2 sm:mx-10 mt-4 mb-4 lg:ml-[4rem] md:ml-[16rem]">
   <div class="max-w-4xl mx-auto">
     <!-- Card with Glass Effect -->
-    <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl p-8 space-y-8 border border-blue-100">
+    <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl p-6 sm:p-8 space-y-8 border border-blue-100 text-[15px] sm:text-sm">
       <!-- Header with Blue Gradient Text -->
       <div class="text-center">
-        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+        <h2 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
           User Role Management
         </h2>
         <p class="mt-2 text-blue-600">Manage and update user permissions efficiently</p>
@@ -15,24 +15,24 @@
         <!-- Email Field with Icon -->
         <div class="relative">
           <label for="email" class="block text-sm font-medium text-blue-700 mb-2">User Email</label>
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <div class="relative flex-1">
-              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-blue-400">
-                <i class="fas fa-envelope"></i>
-              </span>
               <input
                 id="email"
                 formControlName="email"
                 type="email"
-                class="w-full pl-10 border border-blue-200 px-4 py-2 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                class="w-full border border-blue-200 px-4 py-2 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all pl-10"
                 placeholder="Enter email..."
               />
+              <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400">
+                <i class="fas fa-envelope"></i>
+              </span>
             </div>
             <button
               type="button"
               (click)="getUserRoles()"
               [disabled]="isSearching"
-              class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2 disabled:opacity-50"
+              class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <i class="fas" [class.fa-search]="!isSearching" [class.fa-spinner]="isSearching" [class.fa-spin]="isSearching"></i>
               <span>{{ isSearching ? 'Searching...' : 'Search' }}</span>

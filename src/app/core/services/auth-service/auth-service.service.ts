@@ -2,6 +2,9 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { localStorageKeys } from '../../interfaces/localStorageKeys';
+import { ApiEndpoint } from '../../Enums/ApiEndpoint';
+import { HttpClient } from '@angular/common/http';
+import { CurrentUser } from '../../interfaces/user-role';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,7 +12,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   private userEmailSignal: WritableSignal<string | null> = signal(null);
   private authState$ = new BehaviorSubject<boolean>(this.isAuthenticated());
-  constructor() {}
+  constructor(private _httpClient: HttpClient) {}
 
   
   get currentToken(): string {
@@ -49,4 +52,8 @@ export class AuthService {
   getAuthState(): Observable<boolean> {
     return this.authState$.asObservable();
   }
+  getCurrentUser(): Observable<CurrentUser> {
+  return this._httpClient.get<CurrentUser>(ApiEndpoint.CURRENT_USER);
+}
+
 }

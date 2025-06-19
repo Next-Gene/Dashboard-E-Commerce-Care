@@ -16,16 +16,21 @@
       </div>
 
       <!-- User Profile -->
-      <div class="flex items-center mb-6 p-2 rounded-lg bg-gray-50">
-        <div class="flex-shrink-0">
-          <i class="fa-solid fa-circle-user text-3xl"></i>
-        </div>
-        <div class="flex-1 min-w-0 ms-4">
-          <p class="text-sm font-medium text-gray-900 truncate">
-            {{ userName }}
-          </p>
-        </div>
+     
+      <div class="flex flex-col items-center mb-6 p-2 rounded-lg">
+  <!-- User Icon -->
+         <div class="flex-shrink-0 mb-2">
+         <i class="fa-solid fa-circle-user text-3xl text-gray-700"></i>
       </div>
+
+  <!-- User Name -->
+    <div class="text-center">
+        <p class="text-sm font-medium text-gray-900 truncate">
+      {{ userName }}
+        </p>
+      </div>
+    </div>
+
 
       <!-- Navigation -->
       <ul class="menu-list">
@@ -110,7 +115,7 @@
               <span>Customer Review</span>
             </a>
           </li>
-          <li class="section-title">OTHERS</li>
+          <li class="section-title" >OTHERS</li>
         <li class="relative">
           <button
             (click)="toggleSettingsDropdown()"

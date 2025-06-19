@@ -9,4 +9,12 @@ import { RouterModule } from '@angular/router';
   templateUrl: './mobile-nav.component.html',
   styleUrls: ['./mobile-nav.component.scss']
 })
-export class MobileNavComponent {} 
+export class MobileNavComponent {
+mobileDropdownOpen = false;
+
+toggleMobileDropdown() {
+  this.mobileDropdownOpen = !this.mobileDropdownOpen;
+}
+
+
+} 

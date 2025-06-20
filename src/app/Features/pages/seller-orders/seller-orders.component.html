@@ -140,7 +140,7 @@
                   Completed
                 </div>
                 <div class="text-lg font-bold text-gray-900 dark:text-white">
-                  7
+                 {{ totalOrders }}
                 </div>
                 <div class="text-xs text-gray-500 dark:text-gray-400">
                   100% of total
@@ -209,9 +209,7 @@
             class="bg-gray-50 dark:bg-[#292929] p-3 rounded-lg border border-gray-200 dark:border-gray-700"
           >
             <div class="text-lg font-bold text-gray-900 dark:text-white">
-              {{
-                (totalRevenue * completedPercent) / 100 | number : "1.0-0"
-              }}
+              {{ (totalRevenue * completedPercent) / 100 | number : "1.0-0" }}
               EGP
             </div>
             <div class="text-gray-400 text-xs">Completed revenue</div>

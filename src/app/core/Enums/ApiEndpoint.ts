@@ -1,4 +1,4 @@
-import { environment } from "../../../../Environments/environment ";
+import { environment } from '../../../../Environments/environment ';
 
 export class ApiEndpoint {
   // Admin Dashboard Endpoints
@@ -11,7 +11,7 @@ export class ApiEndpoint {
   // Seller Dashboard Endpoints
   static SELLER_DASHBOARD = `${environment.baseUrl}/api/v1/reports/seller/dashboard`;
   static SELLER__top_selling_products = `${environment.baseUrl}/api/v1/reports/seller/top-selling-products`;
-  static SELLER_DAILY_REVENUE=`${environment.baseUrl}/api/v1/reports/daily-revenue` ;
+  static SELLER_DAILY_REVENUE = `${environment.baseUrl}/api/v1/reports/daily-revenue`;
 
   // Product Endpoints
   static PRODUCTS = `${environment.baseUrl}/api/v1/products`;
@@ -32,7 +32,5 @@ export class ApiEndpoint {
   static USE_ROLES = `${environment.baseUrl}/api/v1/Auth/user-roles`;
   static AVAILABLE_ROLES = `${environment.baseUrl}/api/v1/Auth/available-roles`;
   static CHANGE_USER_ROLES = `${environment.baseUrl}/api/v1/Auth/change-user-role`;
-
-  
-
+  static CURRENT_USER = `${environment.baseUrl}/api/v1/Auth/current-user`;
 }

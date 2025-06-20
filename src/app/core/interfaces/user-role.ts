@@ -12,3 +12,6 @@ export interface ChangeUserRoleRequest {
   email: string;
   NewRole: string;
 }
+export interface CurrentUser {
+  userName: string;
+}

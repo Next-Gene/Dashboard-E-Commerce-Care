@@ -16,19 +16,16 @@
       </div>
 
       <!-- User Profile -->
-      <div
-        class="flex items-center mb-6 p-2 rounded-lg dark:text-white duration-300 transition-colors dark:bg-[#292929] bg-gray-50"
-      >
-        <div class="flex-shrink-0">
-          <i
-            class="fa-solid fa-circle-user text-3xl dark:text-white duration-300 transition-colors"
-          ></i>
+      <div class="flex flex-col items-center mb-6 p-2 rounded-lg">
+        <!-- User Icon -->
+        <div class="flex-shrink-0 mb-2">
+          <i class="fa-solid fa-circle-user text-3xl text-gray-700"></i>
         </div>
-        <div class="flex-1 min-w-0 ms-4">
-          <p
-            class="text-sm font-medium dark:text-white duration-300 transition-colors text-gray-900 truncate"
-          >
-            {{ userName }}
+
+        <!-- User Name -->
+        <div class="text-center">
+          <p class="text-sm font-medium text-gray-900 truncate">
+            {{ getcurrentUser() }}
           </p>
         </div>
       </div>
@@ -319,8 +316,8 @@
             <!-- Dropdown -->
             <ul
               *ngIf="isSettingsDropdownOpen"
-             class="absolute left-0 mt-1 w-full bg-white border dark:bg-[#292929] duration-300 transition-colors border-gray-200 rounded-lg shadow-lg z-50"
-             >
+              class="absolute left-0 mt-1 w-full bg-white border dark:bg-[#292929] duration-300 transition-colors border-gray-200 rounded-lg shadow-lg z-50"
+            >
               <li>
                 <div
                   class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#383838] transition-colors duration-300 cursor-pointer"

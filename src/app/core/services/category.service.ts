@@ -13,9 +13,7 @@ export class CategoryService {
   getAllCategories(): Observable<Category[]> {
     return this._httpClient
       .get<APICategoriesResponse>(ApiEndpoint.CATEGORIES)
-      .pipe(
-        tap((response) => console.log('Get All Categories Response:', response))
-      );
+
   }
 
   addCategory(data: {

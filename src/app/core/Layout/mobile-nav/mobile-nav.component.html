@@ -1,29 +1,263 @@
-<nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
-  <div class="flex justify-around items-center h-16">
-    <a routerLink="/dashboard" routerLinkActive="text-blue-600" class="text-gray-600">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-      </svg>
+<ng-container *ngIf="isAdmin">
+  <nav class="mobile-nav" [class.dark]="isDarkMode">
+    <!-- Floating Dashboard Button -->
+    <div class="preview-btn-container">
+      <button
+        class="preview-btn"
+        routerLink="/admin/dashboard"
+        aria-label="Dashboard"
+      >
+        <i class="fas fa-chart-line"></i>
+      </button>
+    </div>
+
+    <!-- Nav Items -->
+    <a class="nav-item" routerLink="/admin/orders" routerLinkActive="active">
+      <i class="fas fa-shopping-bag"></i>
+      <span>Orders</span>
     </a>
-    <a routerLink="/orders" routerLinkActive="text-blue-600" class="text-gray-600">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-      </svg>
+
+    <a class="nav-item" routerLink="/admin/category" routerLinkActive="active">
+      <i class="fas fa-th-list"></i>
+      <span>Menu</span>
     </a>
-    <a routerLink="/menu" routerLinkActive="text-blue-600" class="text-gray-600">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
+
+    <a
+      class="nav-item"
+      routerLink="/admin/manage-products"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-box-open"></i>
+      <span>Products</span>
     </a>
-    <a routerLink="/settings" routerLinkActive="text-blue-600" class="text-gray-600">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-      </svg>
+
+    <a
+      class="nav-item"
+      routerLink="/admin/manage-brands"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-building"></i>
+      <span>Brands</span>
     </a>
-  </div>
-</nav> 
+
+    <a
+      class="nav-item"
+      routerLink="/admin/customer-review"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-comments"></i>
+      <span>Reviews</span>
+    </a>
+
+    <div class="nav-item" (click)="toggleSettingsDropdown()">
+      <i class="fas fa-cog"></i>
+      <span>Settings</span>
+    </div>
+
+    <!-- Dropdown Menu -->
+    <div
+      class="settings-dropdown"
+      *ngIf="isSettingsDropdownOpen"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        routerLink="/admin/user-role"
+        class="dropdown-item"
+      >
+        <i class="fas fa-user mr-2"></i> Accounts
+      </button>
+
+      <div
+        class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#383838] transition-colors duration-300 cursor-pointer"
+        role="menuitem"
+      >
+        <span class="flex items-center">
+          <i class="fas fa-moon mr-2"></i>
+          <span>Dark Mode</span>
+        </span>
+
+        <label class="switch cursor-pointer" (click)="$event.stopPropagation()">
+          <input
+            id="theme-toggle-input"
+            type="checkbox"
+            [checked]="isDarkMode"
+            (change)="toggleTheme()"
+          />
+          <div class="slider round">
+            <div class="sun-moon">
+              <!-- Moon Dots -->
+              <ng-container *ngFor="let i of [1, 2, 3]">
+                <svg
+                  [id]="'moon-dot-' + i"
+                  class="moon-dot"
+                  viewBox="0 0 100 100"
+                >
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+              </ng-container>
+
+              <!-- Clouds -->
+              <ng-container *ngFor="let i of [1, 2, 3]">
+                <svg
+                  [id]="'cloud-' + i"
+                  class="cloud-dark"
+                  viewBox="0 0 100 100"
+                >
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+              </ng-container>
+              <ng-container *ngFor="let i of [4, 5, 6]">
+                <svg
+                  [id]="'cloud-' + i"
+                  class="cloud-light"
+                  viewBox="0 0 100 100"
+                >
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+              </ng-container>
+            </div>
+
+            <!-- Stars -->
+            <div class="stars">
+              <ng-container *ngFor="let i of [1, 2, 3, 4]">
+                <svg [id]="'star-' + i" class="star" viewBox="0 0 20 20">
+                  <path
+                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                  ></path>
+                </svg>
+              </ng-container>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <button class="dropdown-item logout" (click)="logout()">
+        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+      </button>
+    </div>
+  </nav>
+</ng-container>
+<ng-container *ngIf="isSeller">
+  <nav class="mobile-nav" [class.dark]="isDarkMode">
+    <!-- Floating Dashboard Button -->
+    <div class="preview-btn-container">
+      <button
+        class="preview-btn"
+        routerLink="/seller/dashboard"
+        aria-label="Dashboard"
+      >
+        <i class="fas fa-chart-line"></i>
+      </button>
+    </div>
+
+    <!-- Nav Items -->
+    <a class="nav-item" routerLink="/seller/orders" routerLinkActive="active">
+      <i class="fas fa-shopping-bag"></i>
+      <span>Orders</span>
+    </a>
+    <a
+      class="nav-item"
+      routerLink="/seller/manage-products"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-box-open"></i>
+      <span>Products</span>
+    </a>
+ <a
+      class="nav-item"
+      routerLink="/seller/manage-brands"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-building"></i>
+      <span>Brands</span>
+    </a>
+    <a
+      class="nav-item"
+      routerLink="/seller/customer-review"
+      routerLinkActive="active"
+    >
+      <i class="fas fa-comments"></i>
+      <span>Reviews</span>
+    </a>
+
+    <div class="nav-item" (click)="toggleSettingsDropdown()">
+      <i class="fas fa-cog"></i>
+      <span>Settings</span>
+    </div>
+
+    <!-- Dropdown Menu -->
+    <div
+      class="settings-dropdown"
+      *ngIf="isSettingsDropdownOpen"
+      (click)="$event.stopPropagation()"
+    >
+      <div
+        class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#383838] transition-colors duration-300 cursor-pointer"
+        role="menuitem"
+      >
+        <span class="flex items-center">
+          <i class="fas fa-moon mr-2"></i>
+          <span>Dark Mode</span>
+        </span>
+
+        <label class="switch cursor-pointer" (click)="$event.stopPropagation()">
+          <input
+            id="theme-toggle-input"
+            type="checkbox"
+            [checked]="isDarkMode"
+            (change)="toggleTheme()"
+          />
+          <div class="slider round">
+            <div class="sun-moon">
+              <!-- Moon Dots -->
+              <ng-container *ngFor="let i of [1, 2, 3]">
+                <svg
+                  [id]="'moon-dot-' + i"
+                  class="moon-dot"
+                  viewBox="0 0 100 100"
+                >
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+              </ng-container>
+
+              <!-- Clouds -->
+              <ng-container *ngFor="let i of [1, 2, 3]">
+                <svg
+                  [id]="'cloud-' + i"
+                  class="cloud-dark"
+                  viewBox="0 0 100 100"
+                >
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+              </ng-container>
+              <ng-container *ngFor="let i of [4, 5, 6]">
+                <svg
+                  [id]="'cloud-' + i"
+                  class="cloud-light"
+                  viewBox="0 0 100 100"
+                >
+                  <circle cx="50" cy="50" r="50"></circle>
+                </svg>
+              </ng-container>
+            </div>
+
+            <!-- Stars -->
+            <div class="stars">
+              <ng-container *ngFor="let i of [1, 2, 3, 4]">
+                <svg [id]="'star-' + i" class="star" viewBox="0 0 20 20">
+                  <path
+                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                  ></path>
+                </svg>
+              </ng-container>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <button class="dropdown-item logout" (click)="logout()">
+        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+      </button>
+    </div>
+  </nav>
+</ng-container>

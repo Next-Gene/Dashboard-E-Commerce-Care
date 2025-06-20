@@ -195,112 +195,229 @@ color:cyan !important;
 .custom-icon i:active{
   color: #A6ABC8 !important; // لون الأيقونة الفاتح عند الضغط
   }
-  .themeToggle {
-  color: #bbb;
-  width: 3em;
-}
-
-.st-sunMoonThemeToggleBtn {
+.switch {
   position: relative;
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
   cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2196f3;
+  transition: 0.4s;
+  z-index: 0;
+  overflow: hidden;
+}
 
-  .themeToggleInput {
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    z-index: 2;
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round .sun-moon {
+  border-radius: 50%;
+}
+
+.sun-moon {
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: yellow;
+  transition: 0.4s;
+}
+
+.switch input:checked+.slider {
+  background-color: black;
+}
+
+.switch input:checked+.slider .sun-moon {
+  transform: translateX(26px);
+  background-color: white;
+  animation: rotate-center 0.6s ease-in-out both;
+}
+
+/* SVG elements and animation */
+.moon-dot {
+  opacity: 0;
+  transition: 0.4s;
+  fill: gray;
+}
+
+.switch input:checked+.slider .sun-moon .moon-dot {
+  opacity: 1;
+}
+
+#moon-dot-1,
+#moon-dot-2,
+#moon-dot-3 {
+  position: absolute;
+  z-index: 4;
+}
+
+#moon-dot-1 {
+  left: 10px;
+  top: 3px;
+  width: 6px;
+  height: 6px;
+}
+
+#moon-dot-2 {
+  left: 2px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+}
+
+#moon-dot-3 {
+  left: 16px;
+  top: 18px;
+  width: 3px;
+  height: 3px;
+}
+
+.light-ray,
+.cloud-dark,
+.cloud-light {
+  position: absolute;
+  animation: cloud-move 6s infinite;
+  fill-opacity: 0.1;
+}
+
+.cloud-dark {
+  fill: #ccc;
+  animation-delay: 1s;
+}
+
+.cloud-light {
+  fill: #eee;
+}
+
+#cloud-1 {
+  left: 30px;
+  top: 15px;
+  width: 40px;
+}
+
+#cloud-2 {
+  left: 44px;
+  top: 10px;
+  width: 20px;
+}
+
+#cloud-3 {
+  left: 18px;
+  top: 24px;
+  width: 30px;
+}
+
+#cloud-4 {
+  left: 36px;
+  top: 18px;
+  width: 40px;
+}
+
+#cloud-5 {
+  left: 48px;
+  top: 14px;
+  width: 20px;
+}
+
+#cloud-6 {
+  left: 22px;
+  top: 26px;
+  width: 30px;
+}
+
+@keyframes cloud-move {
+  0% {
+    transform: translateX(0px);
   }
 
-  .customCheckbox {
-    margin-left: 25%;
-    width: 2em;
-    height: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #333;
-    border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-    transition: background-color 0.4s ease, transform 0.4s ease;
-
-    svg {
-      width: 70%;
-      height: 70%;
-      transition: transform 0.4s ease, fill 0.4s ease;
-      transform: rotate(40deg);
-
-      .sunMoon {
-        transform-origin: center center;
-        transition: inherit;
-        transform: scale(1);
-      }
-
-      .sunRay {
-        transform-origin: center center;
-        transform: scale(0);
-      }
-
-      mask > circle {
-        transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
-        transform: translate(0px, 0px);
-      }
-    }
+  40% {
+    transform: translateX(4px);
   }
 
-  .themeToggleInput:checked + .customCheckbox {
-    background-color: white;
+  80% {
+    transform: translateX(-4px);
+  }
 
-    svg {
-      transform: rotate(90deg);
-
-      mask > circle {
-        transform: translate(16px, -3px);
-      }
-
-      .sunMoon {
-        transform: scale(0.55);
-      }
-
-      .sunRay {
-        animation: showRay1832 0.4s ease 0s 1 forwards;
-      }
-    }
+  100% {
+    transform: translateX(0px);
   }
 }
 
-@keyframes showRay1832 {
+.stars {
+  transform: translateY(-32px);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.switch input:checked+.slider .stars {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.star {
+  fill: white;
+  position: absolute;
+  animation: star-twinkle 2s infinite;
+}
+
+#star-1 {
+  width: 20px;
+  top: 2px;
+  left: 3px;
+  animation-delay: 0.3s;
+}
+
+#star-2 {
+  width: 6px;
+  top: 16px;
+  left: 3px;
+}
+
+#star-3 {
+  width: 12px;
+  top: 20px;
+  left: 10px;
+  animation-delay: 0.6s;
+}
+
+#star-4 {
+  width: 18px;
+  top: 0px;
+  left: 18px;
+  animation-delay: 1.3s;
+}
+
+@keyframes star-twinkle {
   0% {
-    transform: scale(0);
-  }
-  100% {
     transform: scale(1);
   }
-}
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+  40% {
+    transform: scale(1.2);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes slideUp {
-  from {
-    opacity: 1;
-    transform: translateY(0);
+  80% {
+    transform: scale(0.8);
   }
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
+
+  100% {
+    transform: scale(1);
   }
 }
 

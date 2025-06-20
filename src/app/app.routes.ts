@@ -95,6 +95,13 @@ export const routes: Routes = [
             (m) => m.UserRoleComponent
           ),
       },
+      {
+        path: '**',
+        loadComponent: () =>
+          import('./shared/error-page/error-page.component').then(
+            (m) => m.ErrorPageComponent
+          ),
+      },
     ],
   },
 

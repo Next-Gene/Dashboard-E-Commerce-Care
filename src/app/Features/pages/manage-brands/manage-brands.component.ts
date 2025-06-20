@@ -1,18 +1,23 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Brandsbody, BrandsResponse } from '../../../core/interfaces/Brands';
 import { Subject, takeUntil } from 'rxjs';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { BrandsService } from '../../../core/services/Brands.service';
-import { PaginationComponent } from "../../../shared/pagination/pagination.component";
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-manage-brands',
   templateUrl: './manage-brands.component.html',
   styleUrls: ['./manage-brands.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PaginationComponent]
+  imports: [CommonModule, ReactiveFormsModule, PaginationComponent],
 })
 export class ManageBrandsComponent implements OnInit, OnDestroy {
   brands: BrandsResponse[] = [];
@@ -35,12 +40,9 @@ export class ManageBrandsComponent implements OnInit, OnDestroy {
   totalPages = 0;
   pages: number[] = [];
 
-  constructor(
-    private _brandsService: BrandsService,
-    private fb: FormBuilder
-  ) {
+  constructor(private _brandsService: BrandsService, private fb: FormBuilder) {
     this.brandForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]]
+      name: ['', [Validators.required, Validators.minLength(2)]],
     });
   }
 
@@ -52,11 +54,12 @@ export class ManageBrandsComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-onPageChange(page: number): void {
-  this.currentPage = page;
-}
+  onPageChange(page: number): void {
+    this.currentPage = page;
+  }
   loadBrands() {
-    this._brandsService.getBrands()
+    this._brandsService
+      .getBrands()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
@@ -65,20 +68,19 @@ onPageChange(page: number): void {
           this.updatePagination();
         },
         error: (error) => {
-          console.error('Error loading brands:', error);
           this.toastr.error('Failed to load brands', 'Error', {
             timeOut: 3000,
             positionClass: 'toast-top-right',
-            progressBar: true
+            progressBar: true,
           });
-        }
+        },
       });
   }
 
   onSearch(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.searchTerm = value;
-    this.filteredBrands = this.brands.filter(brand => 
+    this.filteredBrands = this.brands.filter((brand) =>
       brand.name.toLowerCase().includes(value.toLowerCase())
     );
     this.currentPage = 1;
@@ -90,7 +92,7 @@ onPageChange(page: number): void {
     this.selectedBrand = brand || null;
     if (brand) {
       this.brandForm.patchValue({
-        name: brand.name
+        name: brand.name,
       });
     } else {
       this.brandForm.reset();
@@ -116,7 +118,8 @@ onPageChange(page: number): void {
 
   confirmDelete() {
     if (this.brandToDelete) {
-      this._brandsService.deleteBrand(this.brandToDelete)
+      this._brandsService
+        .deleteBrand(this.brandToDelete)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
@@ -125,17 +128,16 @@ onPageChange(page: number): void {
             this.toastr.success('Brand deleted successfully', 'Success', {
               timeOut: 3000,
               positionClass: 'toast-top-right',
-              progressBar: true
+              progressBar: true,
             });
           },
           error: (error) => {
-            console.error('Error deleting brand:', error);
             this.toastr.error('Failed to delete brand', 'Error', {
               timeOut: 3000,
               positionClass: 'toast-top-right',
-              progressBar: true
+              progressBar: true,
             });
-          }
+          },
         });
     }
   }
@@ -143,9 +145,10 @@ onPageChange(page: number): void {
   submitBrand() {
     if (this.brandForm.valid) {
       const brandData: Brandsbody = this.brandForm.value;
-      
+
       if (this.isAddMode) {
-        this._brandsService.addBrand(brandData)
+        this._brandsService
+          .addBrand(brandData)
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next: () => {
@@ -154,20 +157,20 @@ onPageChange(page: number): void {
               this.toastr.success('Brand added successfully', 'Success', {
                 timeOut: 3000,
                 positionClass: 'toast-top-right',
-                progressBar: true
+                progressBar: true,
               });
             },
             error: (error) => {
-              console.error('Error adding brand:', error);
               this.toastr.error('Failed to add brand', 'Error', {
                 timeOut: 3000,
                 positionClass: 'toast-top-right',
-                progressBar: true
+                progressBar: true,
               });
-            }
+            },
           });
       } else if (this.selectedBrand) {
-        this._brandsService.updateBrand(this.selectedBrand.id, brandData)
+        this._brandsService
+          .updateBrand(this.selectedBrand.id, brandData)
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next: () => {
@@ -176,25 +179,28 @@ onPageChange(page: number): void {
               this.toastr.success('Brand updated successfully', 'Success', {
                 timeOut: 3000,
                 positionClass: 'toast-top-right',
-                progressBar: true
+                progressBar: true,
               });
             },
             error: (error) => {
-              console.error('Error updating brand:', error);
               this.toastr.error('Failed to update brand', 'Error', {
                 timeOut: 3000,
                 positionClass: 'toast-top-right',
-                progressBar: true
+                progressBar: true,
               });
-            }
+            },
           });
       }
     } else {
-      this.toastr.warning('Please fill in all required fields correctly', 'Validation Error', {
-        timeOut: 3000,
-        positionClass: 'toast-top-right',
-        progressBar: true
-      });
+      this.toastr.warning(
+        'Please fill in all required fields correctly',
+        'Validation Error',
+        {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+        }
+      );
     }
   }
 

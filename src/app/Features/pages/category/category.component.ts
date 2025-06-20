@@ -66,7 +66,6 @@ export class CategoryComponent implements OnInit {
   getCategories() {
     this.categoryService.getAllCategories().subscribe(data => {
       this.Categories = data;
-      console.log(this.Categories);
     });
   }
 
@@ -84,11 +83,6 @@ export class CategoryComponent implements OnInit {
   onFileSelected(event: any) {
     if (event.target.files && event.target.files[0]) {
       this.selectedFile = event.target.files[0];
-      console.log('Selected File:', {
-        name: this.selectedFile.name,
-        type: this.selectedFile.type,
-        size: this.selectedFile.size
-      });
     }
   }
   submitAdd() {
@@ -99,19 +93,16 @@ export class CategoryComponent implements OnInit {
     if (this.selectedFile) {
       this.categoryService.addCategoryWithPhoto(categoryData, this.selectedFile).subscribe({
         next: (category) => {
-          console.log('✅ Category and photo added:', category);
           if (category && category.photoUrl) {
             // Add the new category to the list
             this.Categories = [...this.Categories, category];
             this.closeModals();
           } else {
-            console.error('❌ Category created but photo URL is missing');
             this.getCategories(); // Refresh the list to get the latest data
             this.closeModals();
           }
         },
         error: (err) => {
-          console.error('❌ Error:', err);
           // Show error message to user
           this.getCategories(); // Refresh the list to ensure consistency
           this.closeModals();
@@ -120,12 +111,10 @@ export class CategoryComponent implements OnInit {
     } else {
       this.categoryService.addCategory(categoryData).subscribe({
         next: (res) => {
-          console.log('✅ Category added:', res);
           this.getCategories();
           this.closeModals();
         },
         error: (err) => {
-          console.error('❌ Error:', err);
           this.closeModals();
         }
       });

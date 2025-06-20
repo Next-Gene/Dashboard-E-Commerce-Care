@@ -1,4 +1,3 @@
-
 import { Component, inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
@@ -7,14 +6,14 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { addProduct, Product } from '../../../core/interfaces/product';
 import { ProductsService } from '../../../core/services/products.service';
 import { CategoryService } from '../../../core/services/category.service';
-import { PaginationComponent } from "../../../shared/pagination/pagination.component";
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-manage-products',
   standalone: true,
   imports: [CommonModule, FormsModule, PaginationComponent],
   templateUrl: './manage-products.component.html',
-  styleUrl: './manage-products.component.scss'
+  styleUrl: './manage-products.component.scss',
 })
 export class ManageProductsComponent {
   protected Math = Math;
@@ -27,9 +26,9 @@ export class ManageProductsComponent {
 
   private toastr = inject(ToastrService);
   private searchSubject = new Subject<string>();
-onPageChange(page: number): void {
-  this.currentPage = page;
-}
+  onPageChange(page: number): void {
+    this.currentPage = page;
+  }
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 0;
@@ -47,14 +46,16 @@ onPageChange(page: number): void {
   categories: any[] = [];
   brands: any[] = [];
 
-  constructor(private _productService: ProductsService, private _CategoryService: CategoryService) {
-    this.searchSubject.pipe(
-      debounceTime(300),
-      distinctUntilChanged()
-    ).subscribe(term => {
-      this.searchTerm = term;
-      this.filterProducts();
-    });
+  constructor(
+    private _productService: ProductsService,
+    private _CategoryService: CategoryService
+  ) {
+    this.searchSubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((term) => {
+        this.searchTerm = term;
+        this.filterProducts();
+      });
   }
 
   ngOnInit(): void {
@@ -73,7 +74,7 @@ onPageChange(page: number): void {
       },
       error: () => {
         this.toastr.error('Failed to load products', 'Error');
-      }
+      },
     });
   }
 
@@ -91,9 +92,12 @@ onPageChange(page: number): void {
 
   filterProducts() {
     this.filteredProducts = this.searchTerm
-      ? this.products.filter(product =>
-          product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-          product.id.toString().includes(this.searchTerm)
+      ? this.products.filter(
+          (product) =>
+            product.name
+              .toLowerCase()
+              .includes(this.searchTerm.toLowerCase()) ||
+            product.id.toString().includes(this.searchTerm)
         )
       : this.products;
 
@@ -127,7 +131,10 @@ onPageChange(page: number): void {
   get pages(): number[] {
     const pages: number[] = [];
     const maxPagesToShow = 5;
-    let startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
+    let startPage = Math.max(
+      1,
+      this.currentPage - Math.floor(maxPagesToShow / 2)
+    );
     let endPage = Math.min(this.totalPages, startPage + maxPagesToShow - 1);
 
     if (endPage - startPage + 1 < maxPagesToShow) {
@@ -177,13 +184,13 @@ onPageChange(page: number): void {
   deleteProduct(id: string) {
     this._productService.deleteProduct(id).subscribe({
       next: () => {
-        this.products = this.products.filter(p => p.id !== +id);
+        this.products = this.products.filter((p) => p.id !== +id);
         this.filterProducts();
         this.toastr.success('Product deleted successfully');
       },
       error: () => {
         this.toastr.error('Failed to delete product');
-      }
+      },
     });
   }
 
@@ -198,24 +205,24 @@ onPageChange(page: number): void {
   openProductModal(product?: Product) {
     this.isAddMode = !product;
     if (product) {
-      this.selectedProductId = product.id.toString();  // ✅ أضف السطر ده هنا
+      this.selectedProductId = product.id.toString(); // ✅ أضف السطر ده هنا
       this.selectedProduct = {
         name: product.name,
         price: product.price,
         description: product.description,
-        categoryId: this.categories.find(c => c.name === product.category)?.id || 0,
-        productBrandId: this.brands.find(b => b.name === product.productBrand)?.id || 0,
+        categoryId:
+          this.categories.find((c) => c.name === product.category)?.id || 0,
+        productBrandId:
+          this.brands.find((b) => b.name === product.productBrand)?.id || 0,
         photoUrl: product.photoUrl ?? '',
       };
-        
-      
     } else {
       this.selectedProduct = {
         name: '',
         price: 0,
         description: '',
         categoryId: this.categories[0]?.id || 0,
-        productBrandId: this.brands[0]?.id || 0
+        productBrandId: this.brands[0]?.id || 0,
       };
       this.selectedProductId = '';
     }
@@ -234,7 +241,7 @@ onPageChange(page: number): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
       this.selectedFile = file;
-  
+
       // 👉 عرض الصورة في الفورم قبل الرفع
       this.previewUrl = URL.createObjectURL(file);
     }
@@ -242,7 +249,7 @@ onPageChange(page: number): void {
 
   async submitProduct() {
     if (!this.selectedProduct) return;
-  
+
     const payload: addProduct = {
       name: this.selectedProduct.name,
       price: this.selectedProduct.price,
@@ -250,18 +257,22 @@ onPageChange(page: number): void {
       categoryId: Number(this.selectedProduct.categoryId),
       productBrandId: Number(this.selectedProduct.productBrandId),
       photoUrl: this.selectedProduct.photoUrl ?? '',
-      productPhotos: this.selectedProduct.productPhotos ?? []
+      productPhotos: this.selectedProduct.productPhotos ?? [],
     };
-  
+
     try {
       if (this.isAddMode) {
         // 🟢 إضافة منتج جديد
-        const response: any = await this._productService.addProduct(payload).toPromise();
+        const response: any = await this._productService
+          .addProduct(payload)
+          .toPromise();
         const productId = response?.data?.id;
         if (productId && this.selectedFile) {
           const formData = new FormData();
           formData.append('file', this.selectedFile);
-          await this._productService.uploadProductPhoto(productId.toString(), formData).toPromise();
+          await this._productService
+            .uploadProductPhoto(productId.toString(), formData)
+            .toPromise();
         }
         this.toastr.success('Product added successfully');
       } else {
@@ -272,20 +283,24 @@ onPageChange(page: number): void {
           description: this.selectedProduct.description,
           price: this.selectedProduct.price,
           photoUrl: this.selectedProduct.photoUrl ?? '',
-          productPhotos: this.selectedProduct.productPhotos ?? []
+          productPhotos: this.selectedProduct.productPhotos ?? [],
         };
-  
-        await this._productService.updateProduct(this.selectedProductId, updatePayload).toPromise();
-  
+
+        await this._productService
+          .updateProduct(this.selectedProductId, updatePayload)
+          .toPromise();
+
         if (this.selectedFile) {
           const formData = new FormData();
           formData.append('file', this.selectedFile);
-          await this._productService.uploadProductPhoto(this.selectedProductId, formData).toPromise();
+          await this._productService
+            .uploadProductPhoto(this.selectedProductId, formData)
+            .toPromise();
         }
-  
+
         this.toastr.success('Product updated successfully');
       }
-  
+
       this.closeProductModal();
       this.getProducts();
     } catch (error) {
@@ -293,5 +308,4 @@ onPageChange(page: number): void {
       this.toastr.error('Failed to save product');
     }
   }
-  
 }

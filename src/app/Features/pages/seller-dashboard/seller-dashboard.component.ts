@@ -85,91 +85,98 @@ export class SellerDashboardComponent implements OnInit, OnDestroy, AfterViewIni
     this.createOrderLineChart();
   }
 
-  private createRevenueChart(): void {
-    if (!this.reviewChartCanvas?.nativeElement || !this.dashboardData?.monthlyRevenue) return;
+private createRevenueChart(): void {
+  if (!this.reviewChartCanvas?.nativeElement || !this.dashboardData?.monthlyRevenue) return;
 
-    const ctx = this.reviewChartCanvas.nativeElement;
-    const gradient = ctx.getContext('2d')?.createLinearGradient(0, 0, 0, 400);
-    if (gradient) {
-      gradient.addColorStop(0, 'rgba(16, 185, 129, 0.8)');
-      gradient.addColorStop(1, 'rgba(16, 185, 129, 0.2)');
-    }
-
-    this.reviewChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: this.dashboardData.monthlyRevenue.map((d) => d.period),
-        datasets: [
-          {
-            label: 'Revenue',
-            data: this.dashboardData.monthlyRevenue.map((d) => d.revenue),
-            backgroundColor: gradient || '#10B981',
-            borderColor: '#10B981',
-            borderWidth: 2,
-            borderRadius: 8,
-            borderSkipped: false,
-            hoverBackgroundColor: '#059669',
-            hoverBorderColor: '#047857',
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        aspectRatio: 2,
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            titleColor: '#fff',
-            bodyColor: '#fff',
-            borderColor: '#10B981',
-            borderWidth: 1,
-            cornerRadius: 8,
-            displayColors: false,
-            callbacks: {
-              label: function(context) {
-                return `Revenue: EGP ${context.parsed.y.toLocaleString()}`;
-              }
-            }
-          }
-        },
-        scales: {
-          x: {
-            grid: {
-              display: false
-            },
-            ticks: {
-              color: '#6B7280',
-              font: {
-                size: 12
-              }
-            }
-          },
-          y: {
-            grid: {
-              color: '#E5E7EB'
-            },
-            ticks: {
-              color: '#6B7280',
-              font: {
-                size: 12
-              },
-              callback: function(value) {
-                return 'EGP ' + value.toLocaleString();
-              }
-            }
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index'
-        }
-      }
-    });
+  // ✅ Destroy existing chart if it exists
+  if (this.reviewChart) {
+    this.reviewChart.destroy();
+    this.reviewChart = null;
   }
+
+  const ctx = this.reviewChartCanvas.nativeElement;
+  const gradient = ctx.getContext('2d')?.createLinearGradient(0, 0, 0, 400);
+  if (gradient) {
+    gradient.addColorStop(0, 'rgba(16, 185, 129, 0.8)');
+    gradient.addColorStop(1, 'rgba(16, 185, 129, 0.2)');
+  }
+
+  this.reviewChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: this.dashboardData.monthlyRevenue.map((d) => d.period),
+      datasets: [
+        {
+          label: 'Revenue',
+          data: this.dashboardData.monthlyRevenue.map((d) => d.revenue),
+          backgroundColor: gradient || '#10B981',
+          borderColor: '#10B981',
+          borderWidth: 2,
+          borderRadius: 8,
+          borderSkipped: false,
+          hoverBackgroundColor: '#059669',
+          hoverBorderColor: '#047857',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      aspectRatio: 2,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: '#10B981',
+          borderWidth: 1,
+          cornerRadius: 8,
+          displayColors: false,
+          callbacks: {
+            label: function (context) {
+              return `Revenue: EGP ${context.parsed.y.toLocaleString()}`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+          ticks: {
+            color: '#6B7280',
+            font: {
+              size: 12,
+            },
+          },
+        },
+        y: {
+          grid: {
+            color: '#E5E7EB',
+          },
+          ticks: {
+            color: '#6B7280',
+            font: {
+              size: 12,
+            },
+            callback: function (value) {
+              return 'EGP ' + value.toLocaleString();
+            },
+          },
+        },
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index',
+      },
+    },
+  });
+}
+
 
   private createOrderTimeChart(): void {
     if (!this.orderTimeCanvas?.nativeElement) return;

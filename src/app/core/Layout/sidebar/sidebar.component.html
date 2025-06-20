@@ -5,7 +5,7 @@
     aria-label="Sidebar"
   >
     <div
-      class="h-full px-3 py-4 overflow-y-auto dark:bg-[#292929] duration-300 transition-colors  bg-white border-r border-gray-200"
+      class="h-full px-3 py-4 overflow-y-auto dark:bg-[#292929] duration-300 transition-colors bg-white border-r border-gray-200"
     >
       <!-- Logo -->
       <div
@@ -16,21 +16,29 @@
       </div>
 
       <!-- User Profile -->
-      <div class="flex items-center mb-6 p-2 rounded-lg dark:text-white duration-300 transition-colors dark:bg-[#292929] bg-gray-50">
+      <div
+        class="flex items-center mb-6 p-2 rounded-lg dark:text-white duration-300 transition-colors dark:bg-[#292929] bg-gray-50"
+      >
         <div class="flex-shrink-0">
-          <i class="fa-solid fa-circle-user text-3xl dark:text-white duration-300 transition-colors "></i>
+          <i
+            class="fa-solid fa-circle-user text-3xl dark:text-white duration-300 transition-colors"
+          ></i>
         </div>
         <div class="flex-1 min-w-0 ms-4">
-          <p class="text-sm font-medium dark:text-white duration-300 transition-colors  text-gray-900 truncate">
+          <p
+            class="text-sm font-medium dark:text-white duration-300 transition-colors text-gray-900 truncate"
+          >
             {{ userName }}
           </p>
         </div>
       </div>
 
       <!-- Navigation -->
-      <ul class="menu-list dark:text-white duration-300 transition-colors dark:bg-[#292929]">
+      <ul
+        class="menu-list dark:text-white duration-300 transition-colors dark:bg-[#292929]"
+      >
         <ng-container *ngIf="isAdmin">
-          <li class="section-title ">MENU</li>
+          <li class="section-title">MENU</li>
           <li>
             <a
               class="menu-item active"
@@ -111,84 +119,117 @@
             </a>
           </li>
           <li class="section-title">OTHERS</li>
-        <li class="relative">
-          <button
-            (click)="toggleSettingsDropdown()"
-            class="menu-item w-full flex items-center justify-between"
-          >
-            <span class="flex items-center gap-3">
-              <span class="icon-bg">
-                <i class="fas fa-cog"></i>
-              </span>
-              <span>Settings</span>
-            </span>
-            <i class="fas fa-chevron-down text-sm"></i>
-          </button>
-
-          <!-- Dropdown -->
-          <ul
-            *ngIf="isSettingsDropdownOpen"
-            class="absolute left-0 mt-1 w-full bg-white border dark:bg-[#292929] duration-300 transition-colors border-gray-200 rounded-lg shadow-lg z-50"
-          >
-            <li>
-              <button
-                class="w-full text-left px-4 py-2 dark:hover:text-black dark:text-white duration-300 transition-colors hover:bg-gray-100 text-[#160E4B] font-medium"
-                routerLink="/admin/user-role"
-              >
-                <span class="icon-bg">
-                  <i class="fas fa-user mr-2"></i>
-                </span>
-                <span>Accounts</span>
-              </button>
-            </li>
-             <li>
-                           <div
-              class=" flex items-center justify-between py-2 text-sm rounded-xl hover:bg-gray-100 dark:hover:bg-white  dark:text-white transition-colors duration-300 cursor-pointer"
-              role="menuitem"
-              (click)="toggleTheme()"
+          <li class="relative">
+            <button
+              (click)="toggleSettingsDropdown()"
+              class="menu-item w-full flex items-center justify-between"
             >
-              <span class="flex items-center icon-bg">
-                      <label class="themeToggle st-sunMoonThemeToggleBtn">
-                <input
-                  type="checkbox"
-                  class="themeToggleInput"
-                  (click)="$event.stopPropagation()"
-                  [checked]="isdarkmode"
-                />
-                <span class="customCheckbox">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" stroke="none">
-                    <g>
-                      <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5" />
-                      <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5" />
-                      <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5" />
-                      <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5" />
-                      <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5" />
-                      <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5" />
-                    </g>
-                    <mask id="moon-mask">
-                      <rect x="0" y="0" width="20" height="20" fill="white" />
-                      <circle cx="11" cy="3" r="8" fill="black" />
-                    </mask>
-                    <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)" />
-                  </svg>
+              <span class="flex items-center gap-3">
+                <span class="icon-bg">
+                  <i class="fas fa-cog"></i>
                 </span>
-              </label>
-                             <h2 class="ml-5 text-gray-400">Change Mood</h2>
-
+                <span>Settings</span>
               </span>
-            </div>
-            </li>
-            <li>
-              <button
-                class="w-full text-left px-4 py-2  hover:bg-red-100 text-red-600 font-semibold"
-                (click)="logout()"
-              >
-                <i class="fas fa-sign-out-alt mr-2"></i>
-                Logout
-              </button>
-            </li>
-          </ul>
-        </li>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </button>
+
+            <!-- Dropdown -->
+            <ul
+              *ngIf="isSettingsDropdownOpen"
+              class="absolute left-0 mt-1 w-full bg-white border dark:bg-[#292929] duration-300 transition-colors border-gray-200 rounded-lg shadow-lg z-50"
+            >
+              <li>
+                <button
+                  class="w-full text-left px-4 py-2 dark:hover:text-black dark:text-white duration-300 transition-colors hover:bg-gray-100 text-[#160E4B] font-medium"
+                  routerLink="/admin/user-role"
+                >
+                  <span class="icon-bg">
+                    <i class="fas fa-user mr-2"></i>
+                  </span>
+                  <span>Accounts</span>
+                </button>
+              </li>
+              <li>
+                <div
+                  class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#383838] transition-colors duration-300 cursor-pointer"
+                  role="menuitem"
+                >
+                  <span class="flex items-center">
+                    <i class="fas fa-moon mr-2"></i>
+                    <span>Dark Mode</span>
+                  </span>
+                  <label
+                    class="switch cursor-pointer"
+                    (click)="$event.stopPropagation()"
+                  >
+                    <input
+                      id="theme-toggle-input"
+                      type="checkbox"
+                      [checked]="isdarkmode"
+                      (change)="toggleTheme()"
+                    />
+                    <div class="slider round">
+                      <div class="sun-moon">
+                        <svg
+                          *ngFor="let i of [1, 2, 3]"
+                          [attr.id]="'moon-dot-' + i"
+                          class="moon-dot"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <svg
+                          *ngFor="let i of [1, 2, 3]"
+                          [attr.id]="'light-ray-' + i"
+                          class="light-ray"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <svg
+                          *ngFor="let i of [1, 2, 3]"
+                          [attr.id]="'cloud-' + i"
+                          class="cloud-dark"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <svg
+                          *ngFor="let i of [4, 5, 6]"
+                          [attr.id]="'cloud-' + i"
+                          class="cloud-light"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                      </div>
+                      <div class="stars">
+                        <svg
+                          *ngFor="let i of [1, 2, 3, 4]"
+                          [attr.id]="'star-' + i"
+                          class="star"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </li>
+              <li>
+                <button
+                  class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 font-semibold"
+                  (click)="logout()"
+                >
+                  <i class="fas fa-sign-out-alt mr-2"></i>
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </li>
         </ng-container>
 
         <!-- Seller Menu -->
@@ -274,13 +315,82 @@
               </span>
               <i class="fas fa-chevron-down text-sm"></i>
             </button>
-           
-  
+
             <!-- Dropdown -->
             <ul
               *ngIf="isSettingsDropdownOpen"
-              class="absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50"
-            >
+             class="absolute left-0 mt-1 w-full bg-white border dark:bg-[#292929] duration-300 transition-colors border-gray-200 rounded-lg shadow-lg z-50"
+             >
+              <li>
+                <div
+                  class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#383838] transition-colors duration-300 cursor-pointer"
+                  role="menuitem"
+                >
+                  <span class="flex items-center">
+                    <i class="fas fa-moon mr-2"></i>
+                    <span>Change Mood</span>
+                  </span>
+                  <label
+                    class="switch cursor-pointer"
+                    (click)="$event.stopPropagation()"
+                  >
+                    <input
+                      id="theme-toggle-input"
+                      type="checkbox"
+                      [checked]="isdarkmode"
+                      (change)="toggleTheme()"
+                    />
+                    <div class="slider round">
+                      <div class="sun-moon">
+                        <svg
+                          *ngFor="let i of [1, 2, 3]"
+                          [attr.id]="'moon-dot-' + i"
+                          class="moon-dot"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <svg
+                          *ngFor="let i of [1, 2, 3]"
+                          [attr.id]="'light-ray-' + i"
+                          class="light-ray"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <svg
+                          *ngFor="let i of [1, 2, 3]"
+                          [attr.id]="'cloud-' + i"
+                          class="cloud-dark"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <svg
+                          *ngFor="let i of [4, 5, 6]"
+                          [attr.id]="'cloud-' + i"
+                          class="cloud-light"
+                          viewBox="0 0 100 100"
+                        >
+                          <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                      </div>
+                      <div class="stars">
+                        <svg
+                          *ngFor="let i of [1, 2, 3, 4]"
+                          [attr.id]="'star-' + i"
+                          class="star"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </li>
               <li>
                 <button
                   class="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 font-semibold"
@@ -291,6 +401,7 @@
                 </button>
               </li>
             </ul>
+          </li>
         </ng-container>
       </ul>
     </div>

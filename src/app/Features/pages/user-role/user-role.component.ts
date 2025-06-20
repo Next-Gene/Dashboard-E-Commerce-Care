@@ -1,5 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ChangeUserRoleRequest } from '../../../core/interfaces/user-role';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +16,7 @@ import { UserRoleService } from '../../../core/services/user-role.service';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './user-role.component.html',
-  styleUrl: './user-role.component.scss'
+  styleUrl: './user-role.component.scss',
 })
 export class UserRoleComponent implements OnDestroy {
   roleForm!: FormGroup;
@@ -51,13 +56,14 @@ export class UserRoleComponent implements OnDestroy {
   }
 
   setupEmailValidation(): void {
-    this.roleForm.get('email')?.valueChanges
-      .pipe(
+    this.roleForm
+      .get('email')
+      ?.valueChanges.pipe(
         takeUntil(this.destroy$),
         debounceTime(500),
         distinctUntilChanged()
       )
-      .subscribe(email => {
+      .subscribe((email) => {
         if (email && this.roleForm.get('email')?.valid) {
           this.getUserRoles();
         }
@@ -65,12 +71,7 @@ export class UserRoleComponent implements OnDestroy {
   }
 
   loadRolesData(): void {
-
-
-    Promise.all([
-      this.getAvailableRoles(),
-      this.getUserRoles()
-    ]).finally(() => {
+    Promise.all([this.getAvailableRoles(), this.getUserRoles()]).finally(() => {
       this.isLoading = false;
     });
   }
@@ -82,10 +83,11 @@ export class UserRoleComponent implements OnDestroy {
     this.isSearching = true;
     this.toastr.info('Searching for user roles...', 'Please wait', {
       timeOut: 2000,
-      positionClass: 'toast-top-right'
+      positionClass: 'toast-top-right',
     });
 
-    this.userRoleService.getUserRoles(email)
+    this.userRoleService
+      .getUserRoles(email)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -93,47 +95,58 @@ export class UserRoleComponent implements OnDestroy {
           if (this.currentRoles.length === 0) {
             this.toastr.warning('No roles found for this user', 'Information', {
               timeOut: 3000,
-              positionClass: 'toast-top-right'
+              positionClass: 'toast-top-right',
             });
-          } 
+          }
         },
         error: (err) => {
-          this.toastr.error(err.error?.message || 'Failed to load user roles', 'Error', {
-            timeOut: 4000,
-            positionClass: 'toast-top-right'
-          });
-          console.error(err);
+          this.toastr.error(
+            err.error?.message || 'Failed to load user roles',
+            'Error',
+            {
+              timeOut: 4000,
+              positionClass: 'toast-top-right',
+            }
+          );
           this.currentRoles = [];
         },
         complete: () => {
           this.isSearching = false;
-        }
+        },
       });
   }
 
   getAvailableRoles(): Promise<void> {
     return new Promise((resolve) => {
-      this.userRoleService.getAvailableRoles()
+      this.userRoleService
+        .getAvailableRoles()
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (res) => {
             this.availableRoles = res;
             if (this.availableRoles.length === 0) {
-              this.toastr.warning('No roles available in the system', 'Warning', {
-                timeOut: 3000,
-                positionClass: 'toast-top-right'
-              });
-            } 
+              this.toastr.warning(
+                'No roles available in the system',
+                'Warning',
+                {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-right',
+                }
+              );
+            }
           },
           error: (err) => {
-            this.toastr.error(err.error?.message || 'Failed to load available roles', 'Error', {
-              timeOut: 4000,
-              positionClass: 'toast-top-right'
-            });
-            console.error(err);
+            this.toastr.error(
+              err.error?.message || 'Failed to load available roles',
+              'Error',
+              {
+                timeOut: 4000,
+                positionClass: 'toast-top-right',
+              }
+            );
             this.availableRoles = [];
           },
-          complete: () => resolve()
+          complete: () => resolve(),
         });
     });
   }
@@ -141,10 +154,14 @@ export class UserRoleComponent implements OnDestroy {
   changeUserRole(): void {
     if (this.roleForm.invalid) {
       this.markFormGroupTouched(this.roleForm);
-      this.toastr.error('Please fill in all required fields correctly', 'Validation Error', {
-        timeOut: 3000,
-        positionClass: 'toast-top-right'
-      });
+      this.toastr.error(
+        'Please fill in all required fields correctly',
+        'Validation Error',
+        {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        }
+      );
       return;
     }
 
@@ -156,35 +173,39 @@ export class UserRoleComponent implements OnDestroy {
     this.isLoading = true;
     this.toastr.info('Updating user role...', 'Please wait', {
       timeOut: 2000,
-      positionClass: 'toast-top-right'
+      positionClass: 'toast-top-right',
     });
 
-    this.userRoleService.changeUserRole(payload)
+    this.userRoleService
+      .changeUserRole(payload)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
           this.toastr.success('Role updated successfully!', 'Success', {
             timeOut: 3000,
-            positionClass: 'toast-top-right'
+            positionClass: 'toast-top-right',
           });
           this.getUserRoles();
           this.roleForm.get('role')?.reset();
         },
         error: (err) => {
-          this.toastr.error(err.error?.message || 'Failed to update role', 'Error', {
-            timeOut: 4000,
-            positionClass: 'toast-top-right'
-          });
-          console.error(err);
+          this.toastr.error(
+            err.error?.message || 'Failed to update role',
+            'Error',
+            {
+              timeOut: 4000,
+              positionClass: 'toast-top-right',
+            }
+          );
         },
         complete: () => {
           this.isLoading = false;
-        }
+        },
       });
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
-    Object.values(formGroup.controls).forEach(control => {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
@@ -203,7 +224,9 @@ export class UserRoleComponent implements OnDestroy {
     if (!field) return '';
 
     if (field.hasError('required')) {
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+      return `${
+        fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+      } is required`;
     }
     if (field.hasError('email')) {
       return 'Please enter a valid email address';
@@ -211,4 +234,3 @@ export class UserRoleComponent implements OnDestroy {
     return '';
   }
 }
-
